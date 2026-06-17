@@ -9,7 +9,7 @@ import pronensSupplies from "@/assets/pronens-supplies.jpg";
 import testimonial1 from "@/assets/testimonial-1.jpg";
 import testimonial2 from "@/assets/testimonial-2.jpg";
 import testimonial3 from "@/assets/testimonial-3.jpg";
-import educolandLogo from "@/assets/educoland-logo.png.asset.json";
+import educolandLogo from "@/assets/educoland-logo-v2.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
