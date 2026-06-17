@@ -541,7 +541,7 @@ function FeaturedCenters() {
                   </span>
                 </div>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
