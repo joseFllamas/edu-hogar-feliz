@@ -322,7 +322,100 @@ function TrustBand() {
   );
 }
 
-type DoorProps = {
+const provinceTop = [
+  { name: "Madrid", count: 1842, score: 9.1 },
+  { name: "Barcelona", count: 1456, score: 9.0 },
+  { name: "Valencia", count: 612, score: 9.2 },
+  { name: "Sevilla", count: 488, score: 9.0 },
+  { name: "Bilbao", count: 274, score: 9.3 },
+  { name: "Málaga", count: 351, score: 8.9 },
+  { name: "Zaragoza", count: 296, score: 9.0 },
+  { name: "Murcia", count: 215, score: 8.8 },
+];
+
+const provinceAlphabet = [
+  "A Coruña", "Álava", "Albacete", "Alicante", "Almería", "Asturias",
+  "Ávila", "Badajoz", "Baleares", "Barcelona", "Burgos", "Cáceres",
+  "Cádiz", "Cantabria", "Castellón", "Ciudad Real", "Córdoba", "Cuenca",
+  "Girona", "Granada", "Guadalajara", "Gipuzkoa", "Huelva", "Huesca",
+  "Jaén", "La Rioja", "Las Palmas", "León", "Lleida", "Lugo",
+  "Madrid", "Málaga", "Murcia", "Navarra", "Ourense", "Palencia",
+  "Pontevedra", "Salamanca", "Segovia", "Sevilla", "Soria", "Tarragona",
+  "Tenerife", "Teruel", "Toledo", "Valencia", "Valladolid", "Bizkaia",
+  "Zamora", "Zaragoza", "Ceuta", "Melilla",
+];
+
+function ProvinceDirectory() {
+  return (
+    <section id="provincias" aria-labelledby="provincias-title" className="border-t border-border bg-card/40">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-secondary-foreground/80">
+              Explora por zona
+            </p>
+            <h2 id="provincias-title" className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+              Ranking de provincias
+            </h2>
+            <p className="mt-3 max-w-md text-muted-foreground">
+              Las provincias con más centros y mejor valoración media de las familias en los últimos 12 meses.
+            </p>
+
+            <ol className="mt-7 divide-y divide-border rounded-2xl bg-card ring-1 ring-border">
+              {provinceTop.map((p, i) => (
+                <li key={p.name}>
+                  <a
+                    href="#"
+                    className="group flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-muted"
+                  >
+                    <span className="w-6 shrink-0 text-right font-display text-sm font-semibold tabular-nums text-muted-foreground">
+                      {i + 1}
+                    </span>
+                    <span className="flex-1 truncate text-sm font-semibold text-foreground group-hover:text-primary">
+                      {p.name}
+                    </span>
+                    <span className="hidden text-xs text-muted-foreground sm:inline">
+                      {p.count.toLocaleString("es-ES")} centros
+                    </span>
+                    <span className="inline-flex items-center gap-1 rounded-md bg-primary/8 px-2 py-1 text-xs font-bold text-primary ring-1 ring-primary/15">
+                      {p.score.toFixed(1)}
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-primary" aria-hidden="true" />
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-secondary-foreground/80">
+              Directorio A–Z
+            </p>
+            <h3 className="mt-2 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+              Las 52 provincias de España
+            </h3>
+            <p className="mt-3 max-w-md text-muted-foreground">
+              Encuentra escuelas infantiles y guarderías en tu provincia. Datos actualizados de fuentes oficiales.
+            </p>
+            <ul className="mt-6 grid grid-cols-2 gap-x-4 gap-y-1.5 sm:grid-cols-3">
+              {provinceAlphabet.map((p) => (
+                <li key={p}>
+                  <a
+                    href="#"
+                    className="block rounded-md py-1 text-sm text-foreground/85 underline-offset-4 hover:text-primary hover:underline"
+                  >
+                    {p}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
   id: string;
   icon: React.ReactNode;
   eyebrow: string;
