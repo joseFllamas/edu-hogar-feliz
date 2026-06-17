@@ -497,9 +497,10 @@ function FeaturedCenters() {
 
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {featuredCenters.map((c) => (
-            <a
-              key={c.name + c.city}
-              href="#"
+            <Link
+              key={c.slug}
+              to="/centro/$slug"
+              params={{ slug: c.slug }}
               className="group flex flex-col overflow-hidden rounded-2xl bg-card shadow-soft ring-1 ring-border transition-all hover:-translate-y-1 hover:shadow-lift"
             >
               <div className="relative">
