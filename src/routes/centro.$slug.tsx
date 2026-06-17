@@ -338,9 +338,9 @@ const contactSchema = z.object({
   phone: z.string().trim().max(30).optional().or(z.literal("")),
   childAge: z.string().trim().max(60).optional().or(z.literal("")),
   message: z.string().trim().min(10, "Cuéntanos un poco más (mín. 10 caracteres)").max(800),
-  consent: z.literal(true, {
-    errorMap: () => ({ message: "Debes aceptar la política de privacidad" }),
-  }),
+  consent: z
+    .boolean()
+    .refine((v) => v === true, "Debes aceptar la política de privacidad"),
 });
 
 type FormState =
