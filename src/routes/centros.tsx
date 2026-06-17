@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { fallback, zodValidator } from "@tanstack/zod-adapter";
+
 import { lazy, Suspense, useDeferredValue, useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 import {

@@ -9,9 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as CentrosRouteImport } from './routes/centros'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CentroSlugRouteImport } from './routes/centro.$slug'
 
+const CentrosRoute = CentrosRouteImport.update({
+  id: '/centros',
+  path: '/centros',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -25,32 +31,43 @@ const CentroSlugRoute = CentroSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/centros': typeof CentrosRoute
   '/centro/$slug': typeof CentroSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/centros': typeof CentrosRoute
   '/centro/$slug': typeof CentroSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/centros': typeof CentrosRoute
   '/centro/$slug': typeof CentroSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/centro/$slug'
+  fullPaths: '/' | '/centros' | '/centro/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/centro/$slug'
-  id: '__root__' | '/' | '/centro/$slug'
+  to: '/' | '/centros' | '/centro/$slug'
+  id: '__root__' | '/' | '/centros' | '/centro/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CentrosRoute: typeof CentrosRoute
   CentroSlugRoute: typeof CentroSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/centros': {
+      id: '/centros'
+      path: '/centros'
+      fullPath: '/centros'
+      preLoaderRoute: typeof CentrosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CentrosRoute: CentrosRoute,
   CentroSlugRoute: CentroSlugRoute,
 }
 export const routeTree = rootRouteImport
