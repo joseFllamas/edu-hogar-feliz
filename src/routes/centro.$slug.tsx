@@ -244,7 +244,7 @@ function Gallery({ images, name }: { images: string[]; name: string }) {
 
   return (
     <>
-      <div className="grid grid-cols-4 grid-rows-2 gap-2 overflow-hidden rounded-3xl ring-1 ring-black/5 sm:gap-3">
+      <div className="relative grid grid-cols-4 grid-rows-2 gap-2 overflow-hidden rounded-3xl ring-1 ring-black/5 sm:gap-3">
         <button
           type="button"
           onClick={() => openAt(0)}
