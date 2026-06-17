@@ -416,6 +416,7 @@ function ProvinceDirectory() {
   );
 }
 
+type DoorProps = {
   id: string;
   icon: React.ReactNode;
   eyebrow: string;
