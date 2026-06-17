@@ -192,13 +192,11 @@ function Hero() {
               <ShieldCheck className="h-3.5 w-3.5" aria-hidden="true" />
               Directorio gratuito · datos verificados
             </span>
-            <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.05] text-ink sm:text-5xl lg:text-6xl">
+            <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-[3.5rem]">
               Encuentra la escuela infantil{"\u00a0"}
-              <span className="relative inline-block text-primary">
-                perfecta
-                <svg aria-hidden="true" viewBox="0 0 220 14" className="absolute -bottom-2 left-0 h-2.5 w-full text-coral" preserveAspectRatio="none">
-                  <path d="M2 9 C 60 1, 160 1, 218 8" stroke="currentColor" strokeWidth="4" strokeLinecap="round" fill="none" />
-                </svg>
+              <span className="relative inline-block">
+                <span className="relative z-10 text-primary">perfecta</span>
+                <span aria-hidden="true" className="absolute inset-x-0 bottom-1 z-0 h-3 rounded-sm bg-secondary/55" />
               </span>
               <br /> para tu peque
             </h1>
