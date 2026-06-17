@@ -120,11 +120,11 @@ function Home() {
       <main id="main">
         <Hero />
         <TrustBand />
-        <ProvinceDirectory />
         <FeaturedCenters />
-        <ThreeDoors />
         <Testimonials />
+        <ThreeDoors />
         <PronensBand />
+        <ProvinceDirectory />
       </main>
       <Footer />
     </div>
