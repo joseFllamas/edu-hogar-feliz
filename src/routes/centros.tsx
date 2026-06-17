@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 
-import { lazy, Suspense, useDeferredValue, useEffect, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 import {
   MapPin,
@@ -25,11 +25,7 @@ import {
   type CentroMock,
 } from "@/lib/centers-mock";
 import educolandLogo from "@/assets/educoland-logo-v2.png.asset.json";
-import { Skeleton } from "@/components/ui/skeleton";
-
-const MapView = lazy(() =>
-  import("@/components/centros/MapView").then((m) => ({ default: m.MapView })),
-);
+import { MapView } from "@/components/centros/MapView";
 
 /* ---------------- Search params ---------------- */
 
