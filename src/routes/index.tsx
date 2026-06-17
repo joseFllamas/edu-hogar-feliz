@@ -133,19 +133,14 @@ function Home() {
 
 function Logo({ className = "" }: { className?: string }) {
   return (
-    <a href="/" className={`flex items-center gap-2 ${className}`} aria-label="Educoland, inicio">
-      <span
-        aria-hidden="true"
-        className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-primary-foreground shadow-soft"
-      >
-        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M3 10l9-6 9 6-9 6-9-6z" />
-          <path d="M7 12v4c0 1.5 2.2 3 5 3s5-1.5 5-3v-4" />
-        </svg>
-      </span>
-      <span className="font-display text-2xl font-semibold tracking-tight text-primary">
-        Educoland
-      </span>
+    <a href="/" className={`inline-flex items-center ${className}`} aria-label="Educoland, inicio">
+      <img
+        src={educolandLogo.url}
+        alt="Educoland"
+        className="h-9 w-auto sm:h-10"
+        loading="eager"
+        decoding="async"
+      />
     </a>
   );
 }
