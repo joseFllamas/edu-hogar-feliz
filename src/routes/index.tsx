@@ -1,15 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { Search, MapPin, ShieldCheck, Star, ArrowRight, Heart, Building2, Briefcase } from "lucide-react";
 import heroNursery from "@/assets/hero-nursery.jpg";
-import center1 from "@/assets/center-1.jpg";
-import center2 from "@/assets/center-2.jpg";
-import center3 from "@/assets/center-3.jpg";
-import center4 from "@/assets/center-4.jpg";
 import pronensSupplies from "@/assets/pronens-supplies.jpg";
 import testimonial1 from "@/assets/testimonial-1.jpg";
 import testimonial2 from "@/assets/testimonial-2.jpg";
 import testimonial3 from "@/assets/testimonial-3.jpg";
 import educolandLogo from "@/assets/educoland-logo-v2.png.asset.json";
+import { centers as featuredCenters } from "@/lib/centers";
 
 export const Route = createFileRoute("/")({
   head: () => ({
