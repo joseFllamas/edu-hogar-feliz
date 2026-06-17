@@ -33,36 +33,47 @@ const MapView = lazy(() =>
 
 /* ---------------- Search params ---------------- */
 
-const csv = () =>
-  z
-    .string()
-    .transform((v) =>
-      v
-        .split(",")
-        .map((s) => s.trim())
-        .filter(Boolean),
-    )
-    .pipe(z.array(z.string()))
-    .or(z.array(z.string()));
+const VISTAS = ["grid", "lista", "mapa"] as const;
+type Vista = (typeof VISTAS)[number];
+const ORDENES = ["score", "nombre", "recientes"] as const;
+type Orden = (typeof ORDENES)[number];
 
-const VistaSchema = z.enum(["grid", "lista", "mapa"]);
-type Vista = z.infer<typeof VistaSchema>;
-const OrdenSchema = z.enum(["score", "nombre", "recientes"]);
-type Orden = z.infer<typeof OrdenSchema>;
+type SearchT = {
+  q: string;
+  provincia: string[];
+  tipo: string[];
+  titularidad: string[];
+  servicios: string[];
+  vista: Vista;
+  orden: Orden;
+  page: number;
+};
 
-const searchSchema = z.object({
-  q: fallback(z.string(), "").default(""),
-  provincia: fallback(z.array(z.string()), []).default([]),
-  tipo: fallback(z.array(z.string()), []).default([]),
-  titularidad: fallback(z.array(z.string()), []).default([]),
-  servicios: fallback(z.array(z.string()), []).default([]),
-  vista: fallback(VistaSchema, "grid").default("grid"),
-  orden: fallback(OrdenSchema, "score").default("score"),
-  page: fallback(z.number().int().min(1), 1).default(1),
-});
+function strArr(v: unknown): string[] {
+  if (Array.isArray(v)) return v.map(String);
+  if (typeof v === "string" && v) return v.split(",").map((s) => s.trim()).filter(Boolean);
+  return [];
+}
+
+function enumOr<T extends string>(allowed: readonly T[], v: unknown, fallback: T): T {
+  return typeof v === "string" && (allowed as readonly string[]).includes(v) ? (v as T) : fallback;
+}
+
+function validateSearch(input: Record<string, unknown>): SearchT {
+  return {
+    q: typeof input.q === "string" ? input.q : "",
+    provincia: strArr(input.provincia),
+    tipo: strArr(input.tipo),
+    titularidad: strArr(input.titularidad),
+    servicios: strArr(input.servicios),
+    vista: enumOr(VISTAS, input.vista, "grid"),
+    orden: enumOr(ORDENES, input.orden, "score"),
+    page: Math.max(1, Math.floor(Number(input.page) || 1)),
+  };
+}
 
 export const Route = createFileRoute("/centros")({
-  validateSearch: zodValidator(searchSchema),
+  validateSearch,
   head: () => ({
     meta: [
       { title: "Buscar escuelas infantiles y guarderías · Educoland" },
