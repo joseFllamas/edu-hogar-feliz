@@ -91,7 +91,7 @@ function Header() {
 }
 
 function CentroPage() {
-  const { center: c } = Route.useLoaderData();
+  const { center: c } = Route.useLoaderData() as { center: (typeof centers)[number] };
   const related = centers.filter((x) => x.slug !== c.slug).slice(0, 3);
 
   return (
