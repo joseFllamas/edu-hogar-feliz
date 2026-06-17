@@ -193,14 +193,14 @@ function Hero() {
               Directorio gratuito · datos verificados
             </span>
             <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.05] text-ink sm:text-5xl lg:text-6xl">
-              Encuentra la guardería{" "}
+              Encuentra la escuela infantil{"\u00a0"}
               <span className="relative inline-block text-primary">
                 perfecta
                 <svg aria-hidden="true" viewBox="0 0 220 14" className="absolute -bottom-2 left-0 h-2.5 w-full text-coral" preserveAspectRatio="none">
                   <path d="M2 9 C 60 1, 160 1, 218 8" stroke="currentColor" strokeWidth="4" strokeLinecap="round" fill="none" />
                 </svg>
-              </span>{" "}
-              para tu peque
+              </span>
+              <br /> para tu peque
             </h1>
             <p className="mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
               <strong className="font-semibold text-foreground">10.182 centros</strong> de 0 a 6 años en toda España.
