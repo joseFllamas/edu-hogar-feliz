@@ -880,12 +880,10 @@ function MapPane({ centros }: { centros: CentroMock[] }) {
         <span>Haz zoom para abrir los grupos</span>
       </div>
       <div className="h-[70dvh] min-h-[480px] w-full">
-        <Suspense fallback={<MapSkeleton />}>
-          <MapView
-            centros={centros}
-            onSelect={(c) => navigate({ to: "/centro/$slug", params: { slug: c.slug } })}
-          />
-        </Suspense>
+        <MapView
+          centros={centros}
+          onSelect={(c) => navigate({ to: "/centro/$slug", params: { slug: c.slug } })}
+        />
       </div>
     </div>
   );
