@@ -132,7 +132,7 @@ function CentrosPage() {
   useEffect(() => {
     if (search.page !== 1)
       navigate({
-        search: (prev) => ({ ...prev, page: 1 }),
+        search: (prev: SearchT) => ({ ...prev, page: 1 }),
         replace: true,
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -146,7 +146,7 @@ function CentrosPage() {
   ]);
 
   const update = (patch: Partial<typeof search>) =>
-    navigate({ search: (prev) => ({ ...prev, ...patch, page: 1 }) });
+    navigate({ search: (prev: SearchT) => ({ ...prev, ...patch, page: 1 }) });
 
   const toggleArr = (key: "provincia" | "tipo" | "titularidad" | "servicios", value: string) => {
     const arr = search[key];
@@ -280,7 +280,7 @@ function CentrosPage() {
 
             <ViewSwitcher
               value={search.vista}
-              onChange={(v) => navigate({ search: (prev) => ({ ...prev, vista: v }) })}
+              onChange={(v) => navigate({ search: (prev: SearchT) => ({ ...prev, vista: v }) })}
             />
           </div>
         </div>
@@ -381,7 +381,7 @@ function CentrosPage() {
               <Pagination
                 page={page}
                 total={totalPages}
-                onChange={(p) => navigate({ search: (prev) => ({ ...prev, page: p }) })}
+                onChange={(p) => navigate({ search: (prev: SearchT) => ({ ...prev, page: p }) })}
               />
             )}
           </section>
@@ -566,7 +566,7 @@ function ViewSwitcher({
 
 /* ---------------- Filter panel ---------------- */
 
-type SearchT = ReturnType<typeof Route.useSearch>;
+
 
 function FilterPanel({
   search,
