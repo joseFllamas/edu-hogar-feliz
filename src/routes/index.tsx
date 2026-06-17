@@ -149,9 +149,14 @@ function Hero() {
             <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
               <span className="font-medium text-foreground/80">Búsquedas populares:</span>
               {["Madrid", "Barcelona", "Valencia", "Sevilla", "Bilbao"].map((c) => (
-                <a key={c} href="#centros" className="rounded-full underline-offset-4 hover:text-primary hover:underline">
+                <Link
+                  key={c}
+                  to="/centros"
+                  search={{ provincia: [c] } as never}
+                  className="rounded-full underline-offset-4 hover:text-primary hover:underline"
+                >
                   {c}
-                </a>
+                </Link>
               ))}
             </div>
           </div>
