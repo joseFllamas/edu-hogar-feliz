@@ -1,15 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { Search, MapPin, ShieldCheck, Star, ArrowRight, Heart, Building2, Briefcase } from "lucide-react";
 import heroNursery from "@/assets/hero-nursery.jpg";
-import center1 from "@/assets/center-1.jpg";
-import center2 from "@/assets/center-2.jpg";
-import center3 from "@/assets/center-3.jpg";
-import center4 from "@/assets/center-4.jpg";
 import pronensSupplies from "@/assets/pronens-supplies.jpg";
 import testimonial1 from "@/assets/testimonial-1.jpg";
 import testimonial2 from "@/assets/testimonial-2.jpg";
 import testimonial3 from "@/assets/testimonial-3.jpg";
 import educolandLogo from "@/assets/educoland-logo-v2.png.asset.json";
+import { centers as featuredCenters } from "@/lib/centers";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,62 +28,6 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const featuredCenters = [
-  {
-    name: "Escuela Infantil El Jardín",
-    type: "Centro privado · 0–3 años",
-    city: "Madrid, Chamberí",
-    score: 9.4,
-    reviews: 128,
-    image: center1,
-    verified: true,
-  },
-  {
-    name: "Guardería Els Petits",
-    type: "Concertada · 0–3 años",
-    city: "Barcelona, Gràcia",
-    score: 9.2,
-    reviews: 94,
-    image: center2,
-    verified: true,
-  },
-  {
-    name: "Escuela Infantil La Huerta",
-    type: "Cooperativa · 1–3 años",
-    city: "Valencia, Ruzafa",
-    score: 9.6,
-    reviews: 76,
-    image: center3,
-    verified: true,
-  },
-  {
-    name: "Centro Montessori Aurora",
-    type: "Privado Montessori · 0–6 años",
-    city: "Sevilla, Triana",
-    score: 9.3,
-    reviews: 112,
-    image: center4,
-    verified: false,
-  },
-  {
-    name: "Escola Bressol Bambolina",
-    type: "Pública · 0–3 años",
-    city: "Bilbao, Indautxu",
-    score: 9.1,
-    reviews: 64,
-    image: center2,
-    verified: true,
-  },
-  {
-    name: "Guardería Caracola",
-    type: "Privada · 0–3 años",
-    city: "Málaga, Centro",
-    score: 9.0,
-    reviews: 58,
-    image: center1,
-    verified: false,
-  },
-];
 
 const testimonials = [
   {
@@ -555,9 +497,10 @@ function FeaturedCenters() {
 
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {featuredCenters.map((c) => (
-            <a
-              key={c.name + c.city}
-              href="#"
+            <Link
+              key={c.slug}
+              to="/centro/$slug"
+              params={{ slug: c.slug }}
               className="group flex flex-col overflow-hidden rounded-2xl bg-card shadow-soft ring-1 ring-border transition-all hover:-translate-y-1 hover:shadow-lift"
             >
               <div className="relative">
@@ -598,7 +541,7 @@ function FeaturedCenters() {
                   </span>
                 </div>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
