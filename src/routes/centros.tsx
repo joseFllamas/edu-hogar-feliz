@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 
-import { lazy, Suspense, useDeferredValue, useEffect, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 import {
   MapPin,
@@ -25,11 +25,7 @@ import {
   type CentroMock,
 } from "@/lib/centers-mock";
 import educolandLogo from "@/assets/educoland-logo-v2.png.asset.json";
-import { Skeleton } from "@/components/ui/skeleton";
-
-const MapView = lazy(() =>
-  import("@/components/centros/MapView").then((m) => ({ default: m.MapView })),
-);
+import { MapView } from "@/components/centros/MapView";
 
 /* ---------------- Search params ---------------- */
 
@@ -884,12 +880,10 @@ function MapPane({ centros }: { centros: CentroMock[] }) {
         <span>Haz zoom para abrir los grupos</span>
       </div>
       <div className="h-[70dvh] min-h-[480px] w-full">
-        <Suspense fallback={<MapSkeleton />}>
-          <MapView
-            centros={centros}
-            onSelect={(c) => navigate({ to: "/centro/$slug", params: { slug: c.slug } })}
-          />
-        </Suspense>
+        <MapView
+          centros={centros}
+          onSelect={(c) => navigate({ to: "/centro/$slug", params: { slug: c.slug } })}
+        />
       </div>
     </div>
   );
@@ -936,12 +930,12 @@ export function GridSkeleton() {
     <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {Array.from({ length: 8 }).map((_, i) => (
         <li key={i} className="overflow-hidden rounded-2xl bg-card ring-1 ring-border">
-          <Skeleton className="aspect-[4/3] w-full rounded-none" />
+          <div className="aspect-[4/3] w-full animate-pulse bg-muted" />
           <div className="space-y-2 p-4">
-            <Skeleton className="h-3 w-20" />
-            <Skeleton className="h-4 w-3/4" />
-            <Skeleton className="h-3 w-1/2" />
-            <Skeleton className="h-3 w-2/3" />
+            <div className="h-3 w-20 animate-pulse rounded bg-muted" />
+            <div className="h-4 w-3/4 animate-pulse rounded bg-muted" />
+            <div className="h-3 w-1/2 animate-pulse rounded bg-muted" />
+            <div className="h-3 w-2/3 animate-pulse rounded bg-muted" />
           </div>
         </li>
       ))}
