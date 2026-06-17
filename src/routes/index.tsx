@@ -120,8 +120,9 @@ function Home() {
       <main id="main">
         <Hero />
         <TrustBand />
-        <ThreeDoors />
+        <ProvinceDirectory />
         <FeaturedCenters />
+        <ThreeDoors />
         <Testimonials />
         <PronensBand />
       </main>
