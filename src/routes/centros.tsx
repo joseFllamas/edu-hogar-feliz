@@ -92,7 +92,7 @@ const PAGE_SIZE = 12;
 /* ---------------- Page ---------------- */
 
 function CentrosPage() {
-  const search = Route.useSearch();
+  const search = Route.useSearch() as SearchT;
   const navigate = useNavigate({ from: "/centros" });
   const [filtersOpen, setFiltersOpen] = useState(false);
 
