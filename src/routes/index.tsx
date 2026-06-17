@@ -28,62 +28,6 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const featuredCenters = [
-  {
-    name: "Escuela Infantil El Jardín",
-    type: "Centro privado · 0–3 años",
-    city: "Madrid, Chamberí",
-    score: 9.4,
-    reviews: 128,
-    image: center1,
-    verified: true,
-  },
-  {
-    name: "Guardería Els Petits",
-    type: "Concertada · 0–3 años",
-    city: "Barcelona, Gràcia",
-    score: 9.2,
-    reviews: 94,
-    image: center2,
-    verified: true,
-  },
-  {
-    name: "Escuela Infantil La Huerta",
-    type: "Cooperativa · 1–3 años",
-    city: "Valencia, Ruzafa",
-    score: 9.6,
-    reviews: 76,
-    image: center3,
-    verified: true,
-  },
-  {
-    name: "Centro Montessori Aurora",
-    type: "Privado Montessori · 0–6 años",
-    city: "Sevilla, Triana",
-    score: 9.3,
-    reviews: 112,
-    image: center4,
-    verified: false,
-  },
-  {
-    name: "Escola Bressol Bambolina",
-    type: "Pública · 0–3 años",
-    city: "Bilbao, Indautxu",
-    score: 9.1,
-    reviews: 64,
-    image: center2,
-    verified: true,
-  },
-  {
-    name: "Guardería Caracola",
-    type: "Privada · 0–3 años",
-    city: "Málaga, Centro",
-    score: 9.0,
-    reviews: 58,
-    image: center1,
-    verified: false,
-  },
-];
 
 const testimonials = [
   {
