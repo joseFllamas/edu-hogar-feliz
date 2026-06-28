@@ -213,11 +213,13 @@ function NoPhotosHero({
   name,
   city,
   province,
+  localityImage,
 }: {
   kind: "locality" | "none";
   name: string;
   city: string;
   province: string;
+  localityImage?: string;
 }) {
   const initials = name
     .replace(/^(Escuela Infantil|Escola Bressol|Guardería|Centro|EI)\s+/i, "")
