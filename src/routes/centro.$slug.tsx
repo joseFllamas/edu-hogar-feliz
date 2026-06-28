@@ -206,7 +206,107 @@ function useScrollSpy(ids: readonly string[]) {
   return active;
 }
 
+/* ---------------- Sin fotos / solo logo localidad ---------------- */
+
+function NoPhotosHero({
+  kind,
+  name,
+  city,
+  province,
+}: {
+  kind: "locality" | "none";
+  name: string;
+  city: string;
+  province: string;
+}) {
+  const initials = name
+    .replace(/^(Escuela Infantil|Escola Bressol|Guardería|Centro|EI)\s+/i, "")
+    .split(/\s+/)
+    .map((w) => w[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+
+  const isLocality = kind === "locality";
+
+  return (
+    <div className="relative overflow-hidden rounded-3xl ring-1 ring-border">
+      {/* Fondo decorativo en lugar de foto inventada */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,oklch(from_var(--primary)_l_c_h/0.18),transparent_55%),radial-gradient(circle_at_80%_80%,oklch(from_var(--secondary)_l_c_h/0.28),transparent_55%)] bg-muted" />
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-[0.07]"
+        style={{
+          backgroundImage:
+            "radial-gradient(currentColor 1px, transparent 1px)",
+          backgroundSize: "18px 18px",
+          color: "var(--primary)",
+        }}
+      />
+
+      <div className="relative grid aspect-[16/9] grid-cols-1 items-center gap-6 px-6 py-8 sm:grid-cols-[auto_1fr] sm:px-10">
+        {/* Emblema */}
+        <div className="flex items-center justify-center">
+          <div className="relative">
+            <div className="grid h-28 w-28 place-items-center rounded-3xl bg-card font-display text-3xl font-bold text-primary shadow-soft ring-1 ring-border sm:h-32 sm:w-32 sm:text-4xl">
+              {initials || "EI"}
+            </div>
+            <span className="absolute -bottom-2 -right-2 inline-flex items-center gap-1 rounded-full bg-foreground px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-background shadow-soft">
+              {isLocality ? (
+                <>
+                  <Building2 className="h-3 w-3" /> {province}
+                </>
+              ) : (
+                <>
+                  <Camera className="h-3 w-3" /> Sin fotos
+                </>
+              )}
+            </span>
+          </div>
+        </div>
+
+        {/* Mensaje */}
+        <div className="text-center sm:text-left">
+          <p className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
+            <ShieldCheck className="h-3.5 w-3.5" />
+            Ficha sin fotos verificadas
+          </p>
+          <h2 className="mt-2 font-display text-xl font-semibold text-ink sm:text-2xl">
+            {isLocality
+              ? `Aún no hay fotos del centro, solo del municipio de ${city.split(",")[0]}`
+              : "Este centro aún no ha subido fotos"}
+          </h2>
+          <p className="mt-2 text-sm text-foreground/75">
+            {isLocality
+              ? "Para no mostrar imágenes que no representan al centro, ocultamos el logo institucional del ayuntamiento. La información de contacto, servicios y opiniones sí es real."
+              : "Estamos verificando la información con el centro. Mientras tanto, puedes ver sus datos, servicios y opiniones reales más abajo."}
+          </p>
+
+          <div className="mt-4 flex flex-wrap justify-center gap-2 sm:justify-start">
+            <a
+              href="#contacto"
+              className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-95"
+            >
+              <Send className="h-3.5 w-3.5" /> Contactar igualmente
+            </a>
+            <a
+              href="#"
+              className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3.5 py-1.5 text-xs font-semibold text-foreground hover:bg-muted"
+            >
+              <Camera className="h-3.5 w-3.5 text-primary" />
+              ¿Eres el centro? Sube fotos
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ---------------- Gallery + lightbox ---------------- */
+
+
 
 function Gallery({
   images,
