@@ -10,6 +10,8 @@ export type Review = {
   comment: string;
 };
 
+export type ImageKind = "photos" | "locality" | "none";
+
 export type Center = {
   slug: string;
   name: string;
@@ -21,7 +23,9 @@ export type Center = {
   reviews: number;
   image: string;
   gallery: string[];
+  imageKind?: ImageKind; // "photos" (default) | "locality" (solo logo/escudo) | "none"
   verified: boolean;
+
   recommended: boolean;
   claimed: boolean; // true = ficha gestionada por el centro
   completeness: number; // 0–100
