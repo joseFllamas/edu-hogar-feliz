@@ -683,7 +683,63 @@ function FieldError({ msg }: { msg: string }) {
   return <p className="mt-1 text-xs font-medium text-destructive">{msg}</p>;
 }
 
+/* ---------------- Initial Tile (placeholder sin foto) ---------------- */
+
+const TILE_PALETTES = [
+  // [from, via, initial color] — gradientes cálidos y luminosos
+  { bg: "from-[#FFE6D5] via-[#FFD4B8] to-[#FFB088]", ink: "text-[#7A2E12]", dot: "bg-[#FF7A45]/30", ring: "ring-[#FF9466]/40" }, // coral suave
+  { bg: "from-[#E6F2EF] via-[#C7E6DE] to-[#8FCBBC]", ink: "text-[#0F4A3F]", dot: "bg-[#2E8B7B]/25", ring: "ring-[#5BA697]/40" }, // sage teal
+  { bg: "from-[#FFF3D1] via-[#FFE39A] to-[#F3C24B]", ink: "text-[#6B4A0A]", dot: "bg-[#C99016]/25", ring: "ring-[#E0A82E]/40" }, // mostaza
+  { bg: "from-[#E4E8FB] via-[#C8D1F3] to-[#9DAEE8]", ink: "text-[#1E2A6B]", dot: "bg-[#3B4FA3]/25", ring: "ring-[#5C72C6]/40" }, // índigo suave
+  { bg: "from-[#FBE5EE] via-[#F6C9DC] to-[#E89BB9]", ink: "text-[#6E1E3F]", dot: "bg-[#C44878]/25", ring: "ring-[#D86A95]/40" }, // rosa empolvado
+  { bg: "from-[#E2EEF8] via-[#C0DCEF] to-[#82B5DC]", ink: "text-[#0F3454]", dot: "bg-[#2A6EA8]/25", ring: "ring-[#5A93C4]/40" }, // cielo
+];
+
+function hashName(s: string) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return h;
+}
+
+function getInitials(name: string) {
+  const clean = name
+    .replace(/^(Escuela\s+Infantil|E\.I\.|Guardería|Llar\s+d['']infants|Escola\s+Bressol|Escola\s+Infantil|Colegio|CEIP|Centro)\s+/i, "")
+    .trim();
+  const parts = clean.split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return name.slice(0, 2).toUpperCase();
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[1][0]).toUpperCase();
+}
+
+function InitialTile({ name }: { name: string }) {
+  const palette = TILE_PALETTES[hashName(name) % TILE_PALETTES.length];
+  const initials = getInitials(name);
+  return (
+    <div
+      className={`relative flex h-full w-full items-center justify-center overflow-hidden bg-gradient-to-br ${palette.bg} transition-transform duration-500 group-hover:scale-[1.03]`}
+      aria-hidden="true"
+    >
+      {/* círculos decorativos */}
+      <span className={`absolute -left-6 -top-6 h-24 w-24 rounded-full ${palette.dot} blur-[2px]`} />
+      <span className={`absolute -right-8 -bottom-10 h-32 w-32 rounded-full ${palette.dot} opacity-70 blur-[2px]`} />
+      <span className={`absolute right-6 top-8 h-2.5 w-2.5 rounded-full ${palette.dot} opacity-80`} />
+      <span className={`absolute left-10 bottom-10 h-1.5 w-1.5 rounded-full ${palette.dot}`} />
+
+      {/* monograma */}
+      <div
+        className={`relative grid h-20 w-20 place-items-center rounded-2xl bg-white/55 backdrop-blur-sm ring-1 ${palette.ring} shadow-sm`}
+      >
+        <span className={`font-display text-3xl font-bold tracking-tight ${palette.ink}`}>
+          {initials}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 /* ---------------- Page ---------------- */
+
+
 
 function CentroPage() {
   const { center: c } = Route.useLoaderData() as { center: (typeof centers)[number] };
