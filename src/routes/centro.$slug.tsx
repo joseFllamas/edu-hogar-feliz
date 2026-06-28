@@ -345,8 +345,16 @@ function Gallery({
   }, [open]);
 
   if (!hasRealPhotos) {
-    return <NoPhotosHero kind={imageKind} name={name} city={city} province={province} />;
+    return (
+      <NoPhotosHero
+        kind={imageKind === "locality" ? "locality" : "none"}
+        name={name}
+        city={city}
+        province={province}
+      />
+    );
   }
+
 
 
   const main = safe[0];
