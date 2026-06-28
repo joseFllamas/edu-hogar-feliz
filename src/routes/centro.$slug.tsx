@@ -208,10 +208,23 @@ function useScrollSpy(ids: readonly string[]) {
 
 /* ---------------- Gallery + lightbox ---------------- */
 
-function Gallery({ images, name }: { images: string[]; name: string }) {
+function Gallery({
+  images,
+  name,
+  imageKind = "photos",
+  city,
+  province,
+}: {
+  images: string[];
+  name: string;
+  imageKind?: "photos" | "locality" | "none";
+  city: string;
+  province: string;
+}) {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
-  const safe = images.length ? images : [];
+  const hasRealPhotos = imageKind === "photos" && images.length > 0;
+  const safe = hasRealPhotos ? images : [];
 
   const openAt = (i: number) => {
     setIndex(i);
@@ -231,18 +244,10 @@ function Gallery({ images, name }: { images: string[]; name: string }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  if (safe.length === 0) {
-    return (
-      <div className="flex aspect-[16/9] w-full items-center justify-center rounded-3xl bg-gradient-to-br from-primary/15 via-secondary/20 to-muted ring-1 ring-border">
-        <div className="text-center">
-          <Camera className="mx-auto h-10 w-10 text-primary/60" />
-          <p className="mt-3 text-sm text-muted-foreground">
-            Sin fotos disponibles todavía
-          </p>
-        </div>
-      </div>
-    );
+  if (!hasRealPhotos) {
+    return <NoPhotosHero kind={imageKind} name={name} city={city} province={province} />;
   }
+
 
   const main = safe[0];
   const thumbs = safe.slice(1, 5);
