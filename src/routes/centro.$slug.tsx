@@ -1153,19 +1153,32 @@ function CentroPage() {
                           params={{ slug: r.slug }}
                           className="group flex h-full flex-col overflow-hidden rounded-2xl bg-card shadow-soft ring-1 ring-border transition-all hover:-translate-y-1 hover:shadow-lift"
                         >
-                          <div className="relative">
-                            <img
-                              src={r.image}
-                              alt={`Imagen de ${r.name}`}
-                              className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                            />
-                            <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-lg bg-primary px-2 py-1 text-xs font-bold text-primary-foreground">
+                          <div className="relative aspect-[4/3] w-full overflow-hidden">
+                            {r.imageKind === "none" ? (
+                              <InitialTile name={r.name} />
+                            ) : r.imageKind === "locality" && r.localityImage ? (
+                              <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-secondary/40 via-background to-primary/10 transition-transform duration-500 group-hover:scale-[1.03]">
+                                <img
+                                  src={r.localityImage}
+                                  alt={`Escudo de ${r.city}`}
+                                  className="h-3/5 w-auto object-contain drop-shadow-sm"
+                                />
+                              </div>
+                            ) : (
+                              <img
+                                src={r.image}
+                                alt={`Imagen de ${r.name}`}
+                                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                              />
+                            )}
+                            <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-lg bg-primary px-2 py-1 text-xs font-bold text-primary-foreground shadow-sm">
                               {r.score.toFixed(1)}
                             </span>
                             <span className="absolute left-3 bottom-3 rounded-full bg-black/65 px-2 py-1 text-[11px] font-semibold text-white backdrop-blur">
                               a {km.toFixed(1)} km
                             </span>
                           </div>
+
                           <div className="flex flex-1 flex-col gap-1 p-4">
                             <h3 className="truncate font-display text-base font-semibold text-ink">
                               {r.name}
