@@ -370,6 +370,7 @@ function Gallery({
         name={name}
         city={city}
         province={province}
+        localityImage={localityImage}
       />
     );
   }
