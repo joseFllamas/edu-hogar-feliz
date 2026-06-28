@@ -759,6 +759,7 @@ function CentroPage() {
             imageKind={c.imageKind}
             city={c.city}
             province={c.province}
+            localityImage={c.localityImage}
           />
 
 
