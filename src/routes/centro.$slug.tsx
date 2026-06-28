@@ -213,11 +213,13 @@ function NoPhotosHero({
   name,
   city,
   province,
+  localityImage,
 }: {
   kind: "locality" | "none";
   name: string;
   city: string;
   province: string;
+  localityImage?: string;
 }) {
   const initials = name
     .replace(/^(Escuela Infantil|Escola Bressol|Guardería|Centro|EI)\s+/i, "")
@@ -249,20 +251,35 @@ function NoPhotosHero({
         {/* Emblema */}
         <div className="flex items-center justify-center">
           <div className="relative">
-            <div className="grid h-28 w-28 place-items-center rounded-3xl bg-card font-display text-3xl font-bold text-primary shadow-soft ring-1 ring-border sm:h-32 sm:w-32 sm:text-4xl">
-              {initials || "EI"}
-            </div>
-            <span className="absolute -bottom-2 -right-2 inline-flex items-center gap-1 rounded-full bg-foreground px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-background shadow-soft">
-              {isLocality ? (
-                <>
+            {isLocality && localityImage ? (
+              <div className="relative">
+                <img
+                  src={localityImage}
+                  alt={`Escudo de ${province}`}
+                  className="h-28 w-auto rounded-3xl bg-card object-contain p-2 shadow-soft ring-1 ring-border sm:h-32"
+                />
+                <span className="absolute -bottom-2 -right-2 inline-flex items-center gap-1 rounded-full bg-foreground px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-background shadow-soft">
                   <Building2 className="h-3 w-3" /> {province}
-                </>
-              ) : (
-                <>
-                  <Camera className="h-3 w-3" /> Sin fotos
-                </>
-              )}
-            </span>
+                </span>
+              </div>
+            ) : (
+              <div className="relative">
+                <div className="grid h-28 w-28 place-items-center rounded-3xl bg-card font-display text-3xl font-bold text-primary shadow-soft ring-1 ring-border sm:h-32 sm:w-32 sm:text-4xl">
+                  {initials || "EI"}
+                </div>
+                <span className="absolute -bottom-2 -right-2 inline-flex items-center gap-1 rounded-full bg-foreground px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-background shadow-soft">
+                  {isLocality ? (
+                    <>
+                      <Building2 className="h-3 w-3" /> {province}
+                    </>
+                  ) : (
+                    <>
+                      <Camera className="h-3 w-3" /> Sin fotos
+                    </>
+                  )}
+                </span>
+              </div>
+            )}
           </div>
         </div>
 
@@ -314,12 +331,14 @@ function Gallery({
   imageKind = "photos",
   city,
   province,
+  localityImage,
 }: {
   images: string[];
   name: string;
   imageKind?: "photos" | "locality" | "none";
   city: string;
   province: string;
+  localityImage?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
@@ -351,6 +370,7 @@ function Gallery({
         name={name}
         city={city}
         province={province}
+        localityImage={localityImage}
       />
     );
   }
@@ -739,6 +759,7 @@ function CentroPage() {
             imageKind={c.imageKind}
             city={c.city}
             province={c.province}
+            localityImage={c.localityImage}
           />
 
 

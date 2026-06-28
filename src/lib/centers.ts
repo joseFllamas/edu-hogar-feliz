@@ -2,6 +2,7 @@ import center1 from "@/assets/center-1.jpg";
 import center2 from "@/assets/center-2.jpg";
 import center3 from "@/assets/center-3.jpg";
 import center4 from "@/assets/center-4.jpg";
+import escudoBarcelona from "@/assets/escudo-barcelona.png.asset.json";
 
 export type Review = {
   author: string;
@@ -24,6 +25,7 @@ export type Center = {
   image: string;
   gallery: string[];
   imageKind?: ImageKind; // "photos" (default) | "locality" (solo logo/escudo) | "none"
+  localityImage?: string; // URL del escudo/logo del municipio
   verified: boolean;
 
   recommended: boolean;
@@ -171,7 +173,9 @@ export const centers: Center[] = [
     score: 9.2,
     reviews: 94,
     image: center2,
-    gallery: [center2, center3, center1, center4],
+    gallery: [],
+    imageKind: "locality",
+    localityImage: escudoBarcelona.url,
     verified: true,
     recommended: true,
     claimed: true,
