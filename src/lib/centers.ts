@@ -2,6 +2,7 @@ import center1 from "@/assets/center-1.jpg";
 import center2 from "@/assets/center-2.jpg";
 import center3 from "@/assets/center-3.jpg";
 import center4 from "@/assets/center-4.jpg";
+import escudoBarcelona from "@/assets/escudo-barcelona.png.asset.json";
 
 export type Review = {
   author: string;
