@@ -61,16 +61,22 @@ export const Route = createFileRoute("/centro/$slug")({
     if (!c) {
       return { meta: [{ title: "Centro no encontrado · Educoland" }] };
     }
+    const hasPhotos = (c.imageKind ?? "photos") === "photos" && c.gallery.length > 0;
     return {
       meta: [
         { title: `${c.name} · ${c.city} · Educoland` },
         { name: "description", content: c.description.slice(0, 155) },
         { property: "og:title", content: `${c.name} · ${c.city}` },
         { property: "og:description", content: c.description.slice(0, 155) },
-        { property: "og:image", content: c.image },
-        { name: "twitter:image", content: c.image },
+        ...(hasPhotos
+          ? [
+              { property: "og:image", content: c.image },
+              { name: "twitter:image", content: c.image },
+            ]
+          : []),
       ],
     };
+
   },
   loader: ({ params }) => {
     const center = getCenter(params.slug);
