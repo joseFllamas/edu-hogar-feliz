@@ -331,12 +331,14 @@ function Gallery({
   imageKind = "photos",
   city,
   province,
+  localityImage,
 }: {
   images: string[];
   name: string;
   imageKind?: "photos" | "locality" | "none";
   city: string;
   province: string;
+  localityImage?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
