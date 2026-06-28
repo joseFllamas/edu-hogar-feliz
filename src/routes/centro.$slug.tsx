@@ -733,7 +733,14 @@ function CentroPage() {
       <main>
         {/* HERO */}
         <section className="mx-auto max-w-7xl px-4 pb-6 pt-5 sm:px-6 lg:px-8">
-          <Gallery images={c.gallery} name={c.name} />
+          <Gallery
+            images={c.gallery}
+            name={c.name}
+            imageKind={c.imageKind}
+            city={c.city}
+            province={c.province}
+          />
+
 
           <div className="mt-6 grid gap-6 lg:grid-cols-[1.5fr_1fr] lg:items-start lg:gap-10">
             <div>
