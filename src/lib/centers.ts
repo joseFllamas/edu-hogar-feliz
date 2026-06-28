@@ -25,6 +25,7 @@ export type Center = {
   image: string;
   gallery: string[];
   imageKind?: ImageKind; // "photos" (default) | "locality" (solo logo/escudo) | "none"
+  localityImage?: string; // URL del escudo/logo del municipio
   verified: boolean;
 
   recommended: boolean;
