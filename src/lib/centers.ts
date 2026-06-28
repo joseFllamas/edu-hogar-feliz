@@ -325,8 +325,10 @@ export const centers: Center[] = [
     score: 9.0,
     reviews: 58,
     image: center1,
-    gallery: [center1, center3, center2],
+    gallery: [],
+    imageKind: "none",
     verified: false,
+
     recommended: false,
     claimed: false,
     completeness: 51,
