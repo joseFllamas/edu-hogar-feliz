@@ -285,8 +285,10 @@ export const centers: Center[] = [
     score: 9.1,
     reviews: 64,
     image: center2,
-    gallery: [center2, center4, center1],
+    gallery: [],
+    imageKind: "locality",
     verified: true,
+
     recommended: false,
     claimed: true,
     completeness: 72,
