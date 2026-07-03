@@ -103,9 +103,9 @@ function Header() {
           <a href="#centros-pro" className="hidden rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-muted hover:text-foreground md:inline-block">
             Centros
           </a>
-          <a href="#empleo" className="hidden rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-muted hover:text-foreground md:inline-block">
+          <Link to="/empleo" className="hidden rounded-full px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-muted hover:text-foreground md:inline-block">
             Empleo
-          </a>
+          </Link>
           <a href="#panel" className="ml-1 inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-card px-4 py-2 text-sm font-semibold text-primary shadow-soft transition-colors hover:bg-primary hover:text-primary-foreground">
             Mi panel
           </a>
