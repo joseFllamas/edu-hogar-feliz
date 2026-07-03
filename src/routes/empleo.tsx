@@ -295,14 +295,13 @@ function ForCenters() {
                 Publica ofertas, cubre suplencias urgentes y encuentra profesionales de tu zona
               </h2>
             </div>
-            <Link
-              to="/"
-              hash="centros-pro"
+            <a
+              href="/#centros-pro"
               className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-background px-5 py-3 text-sm font-semibold text-primary hover:bg-primary hover:text-primary-foreground"
             >
               Acceso para centros
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
+            </a>
           </div>
         </div>
       </div>
