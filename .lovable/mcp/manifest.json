@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "sdk_version": "0.20.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "educoland-mcp",
+      "version": "0.1.0",
+      "title": "Educoland MCP"
+    },
+    "tools": [
+      {
+        "name": "list_centers",
+        "title": "List centers",
+        "description": "List early-childhood education centers on Educoland. Optional filters by city, province, community (autonomous community), or titularidad.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "city": {
+              "description": "Filter by city (case-insensitive substring)",
+              "type": "string"
+            },
+            "province": {
+              "description": "Filter by province (case-insensitive substring)",
+              "type": "string"
+            },
+            "community": {
+              "description": "Filter by autonomous community (case-insensitive substring)",
+              "type": "string"
+            },
+            "titularidad": {
+              "description": "Filter by ownership type",
+              "type": "string",
+              "enum": [
+                "Pública",
+                "Concertada",
+                "Privada",
+                "Cooperativa"
+              ]
+            },
+            "limit": {
+              "default": 20,
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_center",
+        "title": "Get center details",
+        "description": "Retrieve the full detail of an Educoland center by its slug (e.g. 'ei-el-jardin-madrid').",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "slug": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Center slug"
+            }
+          },
+          "required": [
+            "slug"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "find_nearby_centers",
+        "title": "Find nearby centers",
+        "description": "Given a center slug, return the closest Educoland centers ordered by distance in kilometers.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "slug": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Reference center slug"
+            },
+            "max": {
+              "default": 6,
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20
+            }
+          },
+          "required": [
+            "slug"
+          ]
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
