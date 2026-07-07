@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as MiCuentaRouteImport } from './routes/mi-cuenta'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as EmpleoRouteImport } from './routes/empleo'
 import { Route as CentrosRouteImport } from './routes/centros'
@@ -18,6 +19,11 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
+const MiCuentaRoute = MiCuentaRouteImport.update({
+  id: '/mi-cuenta',
+  path: '/mi-cuenta',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
   path: '/mcp',
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/centros': typeof CentrosRoute
   '/empleo': typeof EmpleoRoute
   '/mcp': typeof McpRoute
+  '/mi-cuenta': typeof MiCuentaRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/centro/$slug': typeof CentroSlugRoute
@@ -77,6 +84,7 @@ export interface FileRoutesByTo {
   '/centros': typeof CentrosRoute
   '/empleo': typeof EmpleoRoute
   '/mcp': typeof McpRoute
+  '/mi-cuenta': typeof MiCuentaRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/centro/$slug': typeof CentroSlugRoute
@@ -88,6 +96,7 @@ export interface FileRoutesById {
   '/centros': typeof CentrosRoute
   '/empleo': typeof EmpleoRoute
   '/mcp': typeof McpRoute
+  '/mi-cuenta': typeof MiCuentaRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/centro/$slug': typeof CentroSlugRoute
@@ -100,6 +109,7 @@ export interface FileRouteTypes {
     | '/centros'
     | '/empleo'
     | '/mcp'
+    | '/mi-cuenta'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/centro/$slug'
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/centros'
     | '/empleo'
     | '/mcp'
+    | '/mi-cuenta'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/centro/$slug'
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
     | '/centros'
     | '/empleo'
     | '/mcp'
+    | '/mi-cuenta'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/centro/$slug'
@@ -131,6 +143,7 @@ export interface RootRouteChildren {
   CentrosRoute: typeof CentrosRoute
   EmpleoRoute: typeof EmpleoRoute
   McpRoute: typeof McpRoute
+  MiCuentaRoute: typeof MiCuentaRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   CentroSlugRoute: typeof CentroSlugRoute
@@ -139,6 +152,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/mi-cuenta': {
+      id: '/mi-cuenta'
+      path: '/mi-cuenta'
+      fullPath: '/mi-cuenta'
+      preLoaderRoute: typeof MiCuentaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mcp': {
       id: '/mcp'
       path: '/mcp'
@@ -203,6 +223,7 @@ const rootRouteChildren: RootRouteChildren = {
   CentrosRoute: CentrosRoute,
   EmpleoRoute: EmpleoRoute,
   McpRoute: McpRoute,
+  MiCuentaRoute: MiCuentaRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
