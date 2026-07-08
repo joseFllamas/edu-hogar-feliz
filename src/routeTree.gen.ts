@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ProfesionalesRouteImport } from './routes/profesionales'
 import { Route as MiCuentaRouteImport } from './routes/mi-cuenta'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as EmpleoRouteImport } from './routes/empleo'
@@ -19,6 +20,11 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
+const ProfesionalesRoute = ProfesionalesRouteImport.update({
+  id: '/profesionales',
+  path: '/profesionales',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MiCuentaRoute = MiCuentaRouteImport.update({
   id: '/mi-cuenta',
   path: '/mi-cuenta',
@@ -74,6 +80,7 @@ export interface FileRoutesByFullPath {
   '/empleo': typeof EmpleoRoute
   '/mcp': typeof McpRoute
   '/mi-cuenta': typeof MiCuentaRoute
+  '/profesionales': typeof ProfesionalesRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/centro/$slug': typeof CentroSlugRoute
@@ -85,6 +92,7 @@ export interface FileRoutesByTo {
   '/empleo': typeof EmpleoRoute
   '/mcp': typeof McpRoute
   '/mi-cuenta': typeof MiCuentaRoute
+  '/profesionales': typeof ProfesionalesRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/centro/$slug': typeof CentroSlugRoute
@@ -97,6 +105,7 @@ export interface FileRoutesById {
   '/empleo': typeof EmpleoRoute
   '/mcp': typeof McpRoute
   '/mi-cuenta': typeof MiCuentaRoute
+  '/profesionales': typeof ProfesionalesRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/centro/$slug': typeof CentroSlugRoute
@@ -110,6 +119,7 @@ export interface FileRouteTypes {
     | '/empleo'
     | '/mcp'
     | '/mi-cuenta'
+    | '/profesionales'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/centro/$slug'
@@ -121,6 +131,7 @@ export interface FileRouteTypes {
     | '/empleo'
     | '/mcp'
     | '/mi-cuenta'
+    | '/profesionales'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/centro/$slug'
@@ -132,6 +143,7 @@ export interface FileRouteTypes {
     | '/empleo'
     | '/mcp'
     | '/mi-cuenta'
+    | '/profesionales'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/centro/$slug'
@@ -144,6 +156,7 @@ export interface RootRouteChildren {
   EmpleoRoute: typeof EmpleoRoute
   McpRoute: typeof McpRoute
   MiCuentaRoute: typeof MiCuentaRoute
+  ProfesionalesRoute: typeof ProfesionalesRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   CentroSlugRoute: typeof CentroSlugRoute
@@ -152,6 +165,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/profesionales': {
+      id: '/profesionales'
+      path: '/profesionales'
+      fullPath: '/profesionales'
+      preLoaderRoute: typeof ProfesionalesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mi-cuenta': {
       id: '/mi-cuenta'
       path: '/mi-cuenta'
@@ -224,6 +244,7 @@ const rootRouteChildren: RootRouteChildren = {
   EmpleoRoute: EmpleoRoute,
   McpRoute: McpRoute,
   MiCuentaRoute: MiCuentaRoute,
+  ProfesionalesRoute: ProfesionalesRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
