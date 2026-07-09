@@ -249,12 +249,13 @@ function ProfessionalCard({ p }: { p: Professional }) {
           )}
         </div>
 
-        <button
-          type="button"
+        <Link
+          to="/profesional/$slug"
+          params={{ slug: p.id }}
           className="mt-1 inline-flex w-full items-center justify-center gap-1 rounded-lg border border-neutral-200 py-1.5 text-[13px] font-semibold text-neutral-800 transition-colors hover:border-emerald-600 hover:bg-emerald-50 hover:text-emerald-700"
         >
           Ver perfil <span aria-hidden>→</span>
-        </button>
+        </Link>
       </div>
     </article>
   );
