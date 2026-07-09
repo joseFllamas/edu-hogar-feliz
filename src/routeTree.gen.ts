@@ -15,6 +15,7 @@ import { Route as McpRouteImport } from './routes/mcp'
 import { Route as EmpleoRouteImport } from './routes/empleo'
 import { Route as CentrosRouteImport } from './routes/centros'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProfesionalSlugRouteImport } from './routes/profesional.$slug'
 import { Route as CentroSlugRouteImport } from './routes/centro.$slug'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
@@ -48,6 +49,11 @@ const CentrosRoute = CentrosRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfesionalSlugRoute = ProfesionalSlugRouteImport.update({
+  id: '/profesional/$slug',
+  path: '/profesional/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CentroSlugRoute = CentroSlugRouteImport.update({
@@ -84,6 +90,7 @@ export interface FileRoutesByFullPath {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/centro/$slug': typeof CentroSlugRoute
+  '/profesional/$slug': typeof ProfesionalSlugRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesByTo {
@@ -96,6 +103,7 @@ export interface FileRoutesByTo {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/centro/$slug': typeof CentroSlugRoute
+  '/profesional/$slug': typeof ProfesionalSlugRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesById {
@@ -109,6 +117,7 @@ export interface FileRoutesById {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/centro/$slug': typeof CentroSlugRoute
+  '/profesional/$slug': typeof ProfesionalSlugRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRouteTypes {
@@ -123,6 +132,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/centro/$slug'
+    | '/profesional/$slug'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -135,6 +145,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/centro/$slug'
+    | '/profesional/$slug'
     | '/.mcp/invoke-tool/$tool'
   id:
     | '__root__'
@@ -147,6 +158,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/centro/$slug'
+    | '/profesional/$slug'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
 }
@@ -160,6 +172,7 @@ export interface RootRouteChildren {
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   CentroSlugRoute: typeof CentroSlugRoute
+  ProfesionalSlugRoute: typeof ProfesionalSlugRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
@@ -207,6 +220,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profesional/$slug': {
+      id: '/profesional/$slug'
+      path: '/profesional/$slug'
+      fullPath: '/profesional/$slug'
+      preLoaderRoute: typeof ProfesionalSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/centro/$slug': {
       id: '/centro/$slug'
       path: '/centro/$slug'
@@ -249,6 +269,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   CentroSlugRoute: CentroSlugRoute,
+  ProfesionalSlugRoute: ProfesionalSlugRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
