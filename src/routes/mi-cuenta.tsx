@@ -532,8 +532,216 @@ function FamilyDashboard() {
 }
 
 /* -------------------------------------------------------------------------- */
+/* Panel de Familia (editorial grid — hero navy + tarjetas)                    */
+/* -------------------------------------------------------------------------- */
+function FamilyPanel({ name, onReset }: { name: string; onReset: () => void }) {
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+      <header className="mb-10 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-coral">
+            Panel de familia
+          </p>
+          <h1 className="mt-2 font-display text-4xl font-normal tracking-tight text-ink sm:text-5xl">
+            Hola, {name}
+          </h1>
+          <p className="mt-2 italic text-muted-foreground">
+            Tu rincón personal en Educoland
+          </p>
+        </div>
+        <button
+          onClick={onReset}
+          className="rounded-full border border-dashed border-border px-4 py-2 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted"
+        >
+          Cambiar tipo de usuario
+        </button>
+      </header>
+
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        {/* PRIMARY: Buscar centros */}
+        <article className="group relative flex flex-col justify-between overflow-hidden rounded-[2rem] bg-ink p-8 text-white md:col-span-2 md:p-12">
+          <div className="relative z-10">
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-coral">
+              Acción principal
+            </p>
+            <h2 className="font-display text-3xl leading-tight sm:text-4xl">
+              Busca tu centro educativo
+            </h2>
+            <p className="mt-4 max-w-md text-lg leading-relaxed text-white/70">
+              Explora miles de centros, compara y contacta con los que mejor encajen con tu familia.
+            </p>
+          </div>
+          <div className="relative z-10 mt-10">
+            <a
+              href="/centros"
+              className="inline-flex items-center gap-3 rounded-full bg-coral px-7 py-3.5 text-sm font-bold text-ink transition-transform hover:-translate-y-0.5"
+            >
+              Explorar centros ahora
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -bottom-24 -right-24 h-80 w-80 rounded-full bg-coral/10 blur-3xl transition-colors group-hover:bg-coral/20"
+          />
+        </article>
+
+        {/* Mis solicitudes */}
+        <article className="flex flex-col justify-between rounded-[2rem] border border-border bg-card p-8 shadow-soft transition-shadow hover:shadow-lift">
+          <div>
+            <h3 className="font-display text-2xl text-ink">Mis solicitudes</h3>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+              Aún no has enviado solicitudes. Busca un centro y pulsa{" "}
+              <span className="font-semibold text-ink">
+                «Solicitar plaza o información»
+              </span>{" "}
+              en su ficha.
+            </p>
+          </div>
+          <a
+            href="#"
+            className="mt-8 self-start text-sm font-bold text-ink underline decoration-coral decoration-2 underline-offset-4 transition-colors hover:text-coral"
+          >
+            Ver mi actividad
+          </a>
+        </article>
+
+        {/* Cuenta y acceso */}
+        <UtilityCard
+          title="Cuenta y acceso"
+          desc="Gestiona tu email, contraseña y los datos de acceso a tu perfil de familia."
+          cta="Gestionar cuenta"
+          variant="outline"
+        />
+
+        {/* Mis preguntas */}
+        <article className="group flex flex-col justify-between rounded-3xl border border-border bg-card p-7 shadow-soft transition-shadow hover:shadow-lift">
+          <div>
+            <div className="mb-3 flex items-start justify-between gap-2">
+              <h3 className="font-display text-xl text-ink transition-colors group-hover:text-coral">
+                Mis preguntas
+              </h3>
+              <span className="rounded-full bg-coral/20 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-ink">
+                Consultorio
+              </span>
+            </div>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              ¿Dudas sobre adaptación o precios? Envía tu pregunta a la comunidad.
+            </p>
+          </div>
+          <button className="mt-6 w-full rounded-xl border border-transparent bg-muted py-3 text-sm font-bold text-ink transition-colors hover:border-border hover:bg-muted/70">
+            Nueva pregunta
+          </button>
+        </article>
+
+        {/* Guardados */}
+        <UtilityCard
+          title="Guardados"
+          desc="Accede a tus centros guardados, comparador y avisos de plazas disponibles."
+          cta="Ver favoritos"
+          variant="muted"
+        />
+
+        {/* Pronens highlight */}
+        <article className="mt-2 flex flex-col items-start justify-between gap-8 rounded-[2rem] border-2 border-dashed border-coral/40 bg-coral/5 p-8 md:col-span-3 md:flex-row md:items-center">
+          <div className="max-w-md">
+            <div className="mb-3 inline-flex items-center gap-3">
+              <span className="rounded bg-coral px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-ink">
+                Oferta
+              </span>
+              <h3 className="font-display text-2xl text-ink">Tu descuento en Pronens</h3>
+            </div>
+            <p className="leading-relaxed text-foreground/80">
+              Ahorra un <span className="font-bold text-coral">10% extra</span> en material
+              escolar y uniformes por ser miembro de la familia Educoland.
+            </p>
+          </div>
+          <div className="flex w-full flex-col items-stretch gap-3 sm:flex-row sm:items-center md:w-auto">
+            <div className="rounded-2xl border border-coral/30 bg-card px-8 py-4 text-center font-mono text-2xl tracking-[0.2em] text-ink shadow-inner">
+              EDUCOSUM07
+            </div>
+            <button className="whitespace-nowrap rounded-2xl bg-ink px-8 py-4 font-bold text-white transition-colors hover:bg-ink/90">
+              Ir a la tienda
+            </button>
+          </div>
+        </article>
+
+        {/* Promo banner */}
+        <article className="relative mt-2 h-72 overflow-hidden rounded-[2.5rem] md:col-span-3 md:h-80">
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-br from-ink via-ink/85 to-primary/60"
+          />
+          <div
+            aria-hidden
+            className="absolute -right-16 -top-16 h-96 w-96 rounded-full bg-coral/20 blur-3xl"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-y-0 right-0 hidden w-1/2 opacity-40 md:block"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15), transparent 60%)",
+            }}
+          />
+          <div className="relative flex h-full flex-col justify-center p-8 md:p-14">
+            <span className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-coral">
+              Campaña escolar 2026
+            </span>
+            <h2 className="max-w-xl font-display text-3xl leading-[1.1] text-white sm:text-4xl md:text-5xl">
+              Todo listo para la vuelta al cole con Pronens
+            </h2>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <div className="rounded-xl border border-white/20 bg-white/10 px-5 py-2.5 font-mono text-lg text-white backdrop-blur-md">
+                EDUCOFAM10
+              </div>
+              <button className="rounded-full bg-coral px-8 py-3 font-bold text-ink shadow-xl transition-transform hover:-translate-y-0.5">
+                Ver catálogo completo
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  );
+}
+
+function UtilityCard({
+  title,
+  desc,
+  cta,
+  variant,
+}: {
+  title: string;
+  desc: string;
+  cta: string;
+  variant: "outline" | "muted";
+}) {
+  return (
+    <article className="group flex flex-col justify-between rounded-3xl border border-border bg-card p-7 shadow-soft transition-shadow hover:shadow-lift">
+      <div>
+        <h3 className="mb-3 font-display text-xl text-ink transition-colors group-hover:text-coral">
+          {title}
+        </h3>
+        <p className="text-sm leading-relaxed text-muted-foreground">{desc}</p>
+      </div>
+      <button
+        className={
+          variant === "outline"
+            ? "mt-6 w-full rounded-xl border border-ink py-3 text-sm font-bold text-ink transition-colors hover:bg-ink hover:text-white"
+            : "mt-6 w-full rounded-xl border border-transparent bg-muted py-3 text-sm font-bold text-ink transition-colors hover:border-border hover:bg-muted/70"
+        }
+      >
+        {cta}
+      </button>
+    </article>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
 /* Footer simple                                                               */
 /* -------------------------------------------------------------------------- */
+
 function Footer() {
   return (
     <footer className="border-t border-border bg-card">
