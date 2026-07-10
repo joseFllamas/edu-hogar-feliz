@@ -809,6 +809,7 @@ function ProPanel({ name, onReset }: { name: string; onReset: () => void }) {
           </button>
           <Link
             to="/centros"
+            search={{}}
             className="rounded-full border border-ink/80 px-5 py-2.5 text-sm font-semibold text-ink transition-all hover:bg-ink hover:text-white"
           >
             Buscar centros
