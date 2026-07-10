@@ -58,6 +58,8 @@ function MiCuentaPage() {
       <main>
         {role === "familia" ? (
           <FamilyPanel name={mockUser.name} onReset={() => setRole(null)} />
+        ) : role === "profesional" ? (
+          <ProPanel name={mockUser.name} onReset={() => setRole(null)} />
         ) : (
           <>
             <HeroWelcome name={mockUser.name} role={role} />
@@ -757,5 +759,338 @@ function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/* Panel del Profesional (job board editorial)                                 */
+/* -------------------------------------------------------------------------- */
+function ProPanel({ name, onReset }: { name: string; onReset: () => void }) {
+  const completedSteps = [
+    "Escribe tu carta de presentación",
+    "Indica tu provincia",
+    "¿Dónde quieres trabajar?",
+    "Añade tu titulación",
+  ];
+  const pendingSteps: { label: string; points: number }[] = [
+    { label: "Añade tu experiencia", points: 25 },
+    { label: "Indica tus especialidades", points: 15 },
+    { label: "Sube tu fotografía", points: 15 },
+    { label: "Añade tu formación", points: 10 },
+    { label: "Añade tu teléfono", points: 5 },
+  ];
+
+  const progress = 30;
+  const circumference = 2 * Math.PI * 58;
+  const dashOffset = circumference * (1 - progress / 100);
+
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+      {/* Header */}
+      <header className="mb-10 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4 sm:flex sm:flex-wrap sm:justify-between">
+        <div className="min-w-0">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink/50">
+            Hola, {name}
+          </p>
+          <h1 className="mt-2 font-display text-4xl leading-tight text-ink md:text-5xl">
+            Mi perfil profesional
+          </h1>
+          <p className="mt-2 text-lg text-ink/70">
+            Gestiona tu carrera y presencia en la comunidad educativa.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          <button
+            type="button"
+            onClick={onReset}
+            className="cursor-pointer rounded-full border border-ink/80 px-5 py-2.5 text-sm font-semibold text-ink transition-all hover:bg-ink hover:text-white"
+          >
+            Cambiar de rol
+          </button>
+          <Link
+            to="/centros"
+            search={{}}
+            className="rounded-full border border-ink/80 px-5 py-2.5 text-sm font-semibold text-ink transition-all hover:bg-ink hover:text-white"
+          >
+            Buscar centros
+          </Link>
+          <button
+            type="button"
+            className="rounded-full bg-ink px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90"
+          >
+            Editar mi perfil
+          </button>
+        </div>
+      </header>
+
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+        {/* Sidebar izquierdo */}
+        <aside className="space-y-6 lg:col-span-4">
+          {/* Completitud */}
+          <div className="flex flex-col items-center rounded-3xl border border-ink/5 bg-card p-8 text-center shadow-sm">
+            <div className="relative mb-6 flex h-32 w-32 items-center justify-center">
+              <svg className="h-full w-full -rotate-90" viewBox="0 0 128 128">
+                <circle cx="64" cy="64" r="58" stroke="hsl(var(--muted))" strokeWidth="8" fill="transparent" />
+                <circle
+                  cx="64"
+                  cy="64"
+                  r="58"
+                  stroke="var(--coral)"
+                  strokeWidth="8"
+                  strokeDasharray={circumference}
+                  strokeDashoffset={dashOffset}
+                  strokeLinecap="round"
+                  fill="transparent"
+                  style={{ stroke: "oklch(0.78 0.13 80)" }}
+                />
+              </svg>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className="text-3xl font-bold text-ink">{progress}%</span>
+              </div>
+            </div>
+            <h3 className="mb-2 text-xl font-medium text-ink">Perfil empezando</h3>
+            <p className="mb-6 text-sm text-ink/60">
+              Con 5 pasos más, destacarás mucho más ante los centros reclutadores.
+            </p>
+            <button
+              type="button"
+              className="font-bold text-ink underline decoration-coral decoration-2 underline-offset-4 transition-colors hover:text-coral"
+            >
+              Ver mi perfil como público
+            </button>
+          </div>
+
+          {/* Reputación */}
+          <div className="rounded-3xl bg-ink p-8 text-white shadow-lg">
+            <div className="mb-6 flex items-start justify-between gap-3">
+              <h3 className="font-display text-2xl leading-none">Tu reputación</h3>
+              <span className="rounded bg-coral px-2 py-1 text-[10px] font-bold uppercase tracking-widest text-ink">
+                Comunidad
+              </span>
+            </div>
+            <div className="mb-8 grid grid-cols-3 gap-4">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-coral">0</div>
+                <div className="text-[10px] uppercase tracking-wider opacity-60">Puntos</div>
+              </div>
+              <div className="border-x border-white/10 text-center">
+                <div className="text-2xl font-bold text-coral">0</div>
+                <div className="text-[10px] uppercase tracking-wider opacity-60">Útil</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-coral">0</div>
+                <div className="text-[10px] uppercase tracking-wider opacity-60">Mejores</div>
+              </div>
+            </div>
+            <button
+              type="button"
+              className="w-full rounded-xl border border-white/20 bg-white/10 py-3 text-sm font-medium transition-all hover:bg-white/20"
+            >
+              Ir al consultorio
+            </button>
+          </div>
+
+          {/* Próximamente */}
+          <div className="rounded-3xl border-2 border-dashed border-ink/10 bg-white/50 p-6">
+            <div className="mb-2 flex items-center gap-3">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-coral opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-coral" />
+              </span>
+              <span className="text-sm font-bold uppercase tracking-widest text-ink">
+                Próximamente
+              </span>
+            </div>
+            <p className="text-sm text-ink/70">
+              Alertas de empleo geolocalizadas cerca de tu zona actual.
+            </p>
+          </div>
+
+          {/* Cuenta y acceso */}
+          <div className="rounded-3xl border border-ink/5 bg-card p-6 shadow-sm">
+            <h3 className="mb-3 font-display text-lg text-ink">Cuenta y acceso</h3>
+            <ul className="space-y-2 text-sm text-ink/70">
+              <li className="flex items-center gap-2">
+                <Mail className="h-3.5 w-3.5" /> {mockUser.email}
+              </li>
+              <li className="flex items-center gap-2">
+                <Calendar className="h-3.5 w-3.5" /> Miembro desde {mockUser.memberSince}
+              </li>
+            </ul>
+            <button
+              type="button"
+              className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-ink transition-opacity hover:opacity-70"
+            >
+              <Pencil className="h-3.5 w-3.5" /> Editar datos
+            </button>
+          </div>
+        </aside>
+
+        {/* Columna principal */}
+        <div className="space-y-8 lg:col-span-8">
+          {/* Aviso */}
+          <div className="flex items-start gap-4 rounded-r-2xl border-l-4 border-coral bg-coral/10 p-6">
+            <div className="rounded-lg bg-coral p-2 text-ink">
+              <Sparkles className="h-5 w-5" />
+            </div>
+            <div className="min-w-0">
+              <h4 className="font-bold text-ink">Hemos renovado los perfiles</h4>
+              <p className="mt-1 text-sm text-ink/80">
+                Tu experiencia ahora se muestra de forma estructurada, no como un PDF.
+                Añadir tus datos solo te tomará 2 minutos.
+              </p>
+              <button
+                type="button"
+                className="mt-3 text-sm font-bold text-ink underline decoration-coral decoration-2 underline-offset-4"
+              >
+                Añadir mi experiencia ahora
+              </button>
+            </div>
+          </div>
+
+          {/* Pasos */}
+          <div className="rounded-3xl border border-ink/5 bg-card p-8 shadow-sm">
+            <div className="mb-6 flex flex-wrap items-baseline justify-between gap-3">
+              <h3 className="font-display text-2xl text-ink">Pasos para completar</h3>
+              <span className="text-xs font-bold uppercase tracking-widest text-ink/40">
+                Progreso {progress}/100
+              </span>
+            </div>
+
+            <div className="grid gap-x-12 gap-y-4 md:grid-cols-2">
+              <div className="space-y-4">
+                <p className="text-xs font-semibold uppercase tracking-widest text-ink/40">
+                  Completado
+                </p>
+                {completedSteps.map((s) => (
+                  <div
+                    key={s}
+                    className="flex items-center gap-3 text-ink/40 line-through"
+                  >
+                    <Check className="h-5 w-5 shrink-0 text-coral" />
+                    <span>{s}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="space-y-4">
+                <p className="text-xs font-semibold uppercase tracking-widest text-ink/40">
+                  Pendiente
+                </p>
+                {pendingSteps.map((s) => (
+                  <button
+                    key={s.label}
+                    type="button"
+                    className="group flex w-full items-center justify-between gap-3 text-left"
+                  >
+                    <div className="flex min-w-0 items-center gap-3 text-ink">
+                      <div className="h-5 w-5 shrink-0 rounded-full border-2 border-coral" />
+                      <span className="truncate font-medium transition-colors group-hover:text-coral">
+                        {s.label}
+                      </span>
+                    </div>
+                    <span className="shrink-0 rounded-full bg-coral/10 px-2 py-0.5 text-[10px] font-bold text-ink">
+                      +{s.points} pts
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Candidaturas */}
+          <div className="relative overflow-hidden rounded-3xl border border-ink/5 bg-card p-8 shadow-sm">
+            <div className="mb-8 flex items-center justify-between gap-3">
+              <h3 className="font-display text-2xl text-ink">Mis candidaturas</h3>
+              <Link
+                to="/empleo"
+                className="group inline-flex items-center gap-1 text-sm font-bold text-ink"
+              >
+                Bolsa de empleo
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+            <div className="flex flex-col items-center justify-center py-8 text-center opacity-60">
+              <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-background">
+                <Building2 className="h-8 w-8 text-ink" />
+              </div>
+              <p className="text-lg font-medium text-ink">
+                Aún no te has inscrito en ninguna oferta.
+              </p>
+              <p className="text-sm text-ink/70">
+                Empieza a buscar centros educativos hoy mismo.
+              </p>
+            </div>
+          </div>
+
+          {/* Mis respuestas */}
+          <div className="rounded-3xl border border-ink/5 bg-card p-8 shadow-sm">
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <h3 className="font-display text-2xl text-ink">Mis respuestas</h3>
+              <span className="rounded-full bg-ink px-3 py-1 text-xs font-semibold text-white">
+                Preguntas sin responder
+              </span>
+            </div>
+            <p className="text-sm text-ink/70">
+              Aún no has respondido ninguna pregunta. Comparte tu experiencia con las
+              familias del consultorio y suma reputación ante los centros.
+            </p>
+          </div>
+
+          {/* Pronens */}
+          <div className="relative flex flex-col items-center gap-8 overflow-hidden rounded-3xl bg-ink p-10 text-white md:flex-row">
+            <div className="relative z-10 flex-1">
+              <span className="text-xs font-bold uppercase tracking-widest text-coral">
+                Beneficio Exclusivo
+              </span>
+              <h3 className="mb-4 mt-2 font-display text-3xl">Convenio Pronens</h3>
+              <p className="mb-6 text-sm leading-relaxed text-white/70">
+                Material escolar y uniformes a mejor precio para los miembros de la
+                comunidad Educoland.
+              </p>
+              <div className="inline-flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-tighter text-white/50">
+                    Código de descuento
+                  </p>
+                  <p className="font-mono text-xl text-coral">EDUCOPROF07</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (typeof navigator !== "undefined") {
+                      navigator.clipboard?.writeText("EDUCOPROF07");
+                    }
+                  }}
+                  className="rounded-lg bg-white px-4 py-2 text-sm font-bold text-ink transition-colors hover:bg-coral"
+                >
+                  Copiar
+                </button>
+              </div>
+            </div>
+            <div className="relative z-10 shrink-0">
+              <button
+                type="button"
+                className="rounded-full bg-coral px-8 py-4 text-lg font-bold text-ink shadow-xl transition-transform hover:scale-105"
+              >
+                Ir a la tienda
+              </button>
+            </div>
+            <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-coral/5" />
+            <div className="pointer-events-none absolute -bottom-20 -left-20 h-48 w-48 rounded-full bg-white/5" />
+          </div>
+
+          {/* Logout */}
+          <div className="flex justify-end">
+            <button
+              type="button"
+              className="inline-flex items-center gap-2 text-sm font-medium text-ink/60 transition-colors hover:text-ink"
+            >
+              <LogOut className="h-4 w-4" /> Cerrar sesión
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
