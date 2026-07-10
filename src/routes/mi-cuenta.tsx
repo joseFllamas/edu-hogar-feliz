@@ -58,6 +58,8 @@ function MiCuentaPage() {
       <main>
         {role === "familia" ? (
           <FamilyPanel name={mockUser.name} onReset={() => setRole(null)} />
+        ) : role === "profesional" ? (
+          <ProPanel name={mockUser.name} onReset={() => setRole(null)} />
         ) : (
           <>
             <HeroWelcome name={mockUser.name} role={role} />
