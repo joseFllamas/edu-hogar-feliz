@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as QuienesSomosRouteImport } from './routes/quienes-somos'
 import { Route as ProfesionalesRouteImport } from './routes/profesionales'
 import { Route as MiCuentaRouteImport } from './routes/mi-cuenta'
 import { Route as McpRouteImport } from './routes/mcp'
@@ -21,6 +22,11 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
+const QuienesSomosRoute = QuienesSomosRouteImport.update({
+  id: '/quienes-somos',
+  path: '/quienes-somos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProfesionalesRoute = ProfesionalesRouteImport.update({
   id: '/profesionales',
   path: '/profesionales',
@@ -87,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/mcp': typeof McpRoute
   '/mi-cuenta': typeof MiCuentaRoute
   '/profesionales': typeof ProfesionalesRoute
+  '/quienes-somos': typeof QuienesSomosRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/centro/$slug': typeof CentroSlugRoute
@@ -100,6 +107,7 @@ export interface FileRoutesByTo {
   '/mcp': typeof McpRoute
   '/mi-cuenta': typeof MiCuentaRoute
   '/profesionales': typeof ProfesionalesRoute
+  '/quienes-somos': typeof QuienesSomosRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/centro/$slug': typeof CentroSlugRoute
@@ -114,6 +122,7 @@ export interface FileRoutesById {
   '/mcp': typeof McpRoute
   '/mi-cuenta': typeof MiCuentaRoute
   '/profesionales': typeof ProfesionalesRoute
+  '/quienes-somos': typeof QuienesSomosRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/centro/$slug': typeof CentroSlugRoute
@@ -129,6 +138,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/mi-cuenta'
     | '/profesionales'
+    | '/quienes-somos'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/centro/$slug'
@@ -142,6 +152,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/mi-cuenta'
     | '/profesionales'
+    | '/quienes-somos'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/centro/$slug'
@@ -155,6 +166,7 @@ export interface FileRouteTypes {
     | '/mcp'
     | '/mi-cuenta'
     | '/profesionales'
+    | '/quienes-somos'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/centro/$slug'
@@ -169,6 +181,7 @@ export interface RootRouteChildren {
   McpRoute: typeof McpRoute
   MiCuentaRoute: typeof MiCuentaRoute
   ProfesionalesRoute: typeof ProfesionalesRoute
+  QuienesSomosRoute: typeof QuienesSomosRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   CentroSlugRoute: typeof CentroSlugRoute
@@ -178,6 +191,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/quienes-somos': {
+      id: '/quienes-somos'
+      path: '/quienes-somos'
+      fullPath: '/quienes-somos'
+      preLoaderRoute: typeof QuienesSomosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/profesionales': {
       id: '/profesionales'
       path: '/profesionales'
@@ -265,6 +285,7 @@ const rootRouteChildren: RootRouteChildren = {
   McpRoute: McpRoute,
   MiCuentaRoute: MiCuentaRoute,
   ProfesionalesRoute: ProfesionalesRoute,
+  QuienesSomosRoute: QuienesSomosRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
