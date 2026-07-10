@@ -56,27 +56,32 @@ function MiCuentaPage() {
       <Header />
 
       <main>
-        <HeroWelcome name={mockUser.name} role={role} />
-
-        <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-          <div className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-10">
-            <AccountCard user={mockUser} role={role} onReset={() => setRole(null)} />
-
-            <div className="min-w-0">
-              {role ? (
-                <RoleDashboard role={role} />
-              ) : (
-                <RoleChooser onPick={setRole} />
-              )}
-            </div>
-          </div>
-        </section>
+        {role === "familia" ? (
+          <FamilyPanel name={mockUser.name} onReset={() => setRole(null)} />
+        ) : (
+          <>
+            <HeroWelcome name={mockUser.name} role={role} />
+            <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+              <div className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-10">
+                <AccountCard user={mockUser} role={role} onReset={() => setRole(null)} />
+                <div className="min-w-0">
+                  {role ? (
+                    <RoleDashboard role={role} />
+                  ) : (
+                    <RoleChooser onPick={setRole} />
+                  )}
+                </div>
+              </div>
+            </section>
+          </>
+        )}
       </main>
 
       <Footer />
     </div>
   );
 }
+
 
 /* -------------------------------------------------------------------------- */
 /* Header (mismo lenguaje que index/empleo)                                    */
