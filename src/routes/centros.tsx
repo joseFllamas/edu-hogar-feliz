@@ -69,6 +69,8 @@ function validateSearch(raw: Partial<SearchT>): SearchT {
   };
 }
 
+export const centrosSearchDefaults: SearchT = validateSearch({});
+
 export const Route = createFileRoute("/centros")({
   validateSearch,
   head: () => ({
@@ -451,6 +453,7 @@ function SiteHeader() {
         <nav className="flex items-center gap-1 text-sm">
           <Link
             to="/centros"
+            search={centrosSearchDefaults}
             className="rounded-full px-3 py-2 font-semibold text-primary"
           >
             Buscar centros
@@ -486,7 +489,7 @@ function SiteFooter() {
         <div>
           <h4 className="font-display font-semibold text-ink">Familias</h4>
           <ul className="mt-2 space-y-1.5 text-xs text-muted-foreground">
-            <li><Link to="/centros" className="hover:text-primary">Buscar centros</Link></li>
+            <li><Link to="/centros" search={centrosSearchDefaults} className="hover:text-primary">Buscar centros</Link></li>
             <li><a href="#" className="hover:text-primary">Cómo elegir guardería</a></li>
             <li><a href="#" className="hover:text-primary">Ayudas y bonificaciones</a></li>
           </ul>

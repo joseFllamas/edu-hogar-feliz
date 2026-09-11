@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
+import { centrosSearchDefaults } from "./centros";
   ArrowRight,
   ArrowUpRight,
   Plus,
@@ -123,7 +124,7 @@ function EditorialHeader() {
           Educoland
         </Link>
         <nav className="hidden gap-8 text-[11px] font-semibold uppercase tracking-[0.18em] md:flex">
-          <Link to="/centros" className="transition-colors hover:opacity-60" style={{ color: NAVY }}>
+          <Link to="/centros" search={centrosSearchDefaults} className="transition-colors hover:opacity-60" style={{ color: NAVY }}>
             Buscar centros
           </Link>
           <Link to="/empleo" className="transition-colors hover:opacity-60" style={{ color: NAVY }}>

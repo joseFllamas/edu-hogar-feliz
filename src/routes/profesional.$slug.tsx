@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { centrosSearchDefaults } from "./centros";
 
 export const Route = createFileRoute("/profesional/$slug")({
   head: ({ params }) => ({
@@ -86,7 +87,7 @@ function ProfesionalDetailPage() {
             Educoland
           </Link>
           <nav className="hidden gap-6 text-sm font-medium text-[#0f1b3d]/70 md:flex">
-            <Link to="/centros" className="hover:text-[#0f1b3d]">Buscar centros</Link>
+            <Link to="/centros" search={centrosSearchDefaults} className="hover:text-[#0f1b3d]">Buscar centros</Link>
             <Link to="/empleo" className="hover:text-[#0f1b3d]">Empleo</Link>
             <Link to="/profesionales" className="text-[#0f1b3d]">Profesionales</Link>
             <Link to="/mi-cuenta" className="hover:text-[#0f1b3d]">Mi cuenta</Link>
