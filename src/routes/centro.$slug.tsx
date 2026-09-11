@@ -49,6 +49,8 @@ import {
   Tent,
   HandHeart,
   MessageCircle,
+  Share2,
+
 } from "lucide-react";
 import { z } from "zod";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
