@@ -55,7 +55,8 @@ function enumOr<T extends string>(allowed: readonly T[], v: unknown, fallback: T
   return typeof v === "string" && (allowed as readonly string[]).includes(v) ? (v as T) : fallback;
 }
 
-function validateSearch(input: Partial<Record<keyof SearchT, unknown>>): SearchT {
+function validateSearch(raw: Partial<SearchT>): SearchT {
+  const input = raw as Record<string, unknown>;
   return {
     q: typeof input.q === "string" ? input.q : "",
     provincia: strArr(input.provincia),
