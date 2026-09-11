@@ -821,65 +821,69 @@ function CentroPage() {
           />
 
 
-          <div className="mt-6 grid gap-6 lg:grid-cols-[1.5fr_1fr] lg:items-start lg:gap-10">
-            <div>
-              <div className="flex flex-wrap items-center gap-2">
-                <Chip>{c.type.split("·")[0].trim()}</Chip>
-                <Chip>{c.grado}</Chip>
-                {c.recommended && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-secondary/40 px-2.5 py-1 text-xs font-bold text-secondary-foreground">
-                    <Award className="h-3.5 w-3.5" /> Recomendado
-                  </span>
-                )}
-                {c.verified && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary ring-1 ring-primary/20">
-                    <ShieldCheck className="h-3.5 w-3.5" /> Ficha verificada
-                  </span>
-                )}
-              </div>
-
-              <h1 className="mt-4 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl lg:text-[2.6rem]">
-                {c.name}
-              </h1>
-              <p className="mt-2 inline-flex items-center gap-1.5 text-sm text-muted-foreground">
-                <MapPin className="h-4 w-4 text-coral" />
-                {c.city}
-              </p>
-
-              <div className="mt-5 flex flex-wrap items-center gap-4">
-                <div className="flex items-center gap-3 rounded-2xl bg-card p-3 pr-5 shadow-soft ring-1 ring-border">
-                  <span className="grid h-12 w-12 place-items-center rounded-xl bg-primary text-primary-foreground">
-                    <span className="font-display text-lg font-bold leading-none">
-                      {c.score.toFixed(1)}
+          <div className="mt-6 rounded-3xl border border-border bg-card p-5 shadow-soft sm:p-7 lg:p-8">
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-12">
+              {/* Identidad */}
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Chip>{c.type.split("·")[0].trim()}</Chip>
+                  <Chip>{c.grado}</Chip>
+                  {c.recommended && (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-secondary/40 px-2.5 py-1 text-xs font-bold text-secondary-foreground">
+                      <Award className="h-3.5 w-3.5" /> Recomendado
                     </span>
-                  </span>
-                  <div>
-                    <div className="flex items-center gap-1" aria-hidden>
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`h-4 w-4 ${
-                            i < ratingStars ? "fill-star text-star" : "text-muted-foreground/40"
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      <span className="font-semibold text-foreground">
-                        {c.reviews} {c.reviews === 1 ? "valoración" : "valoraciones"}
-                      </span>{" "}
-                      de familias
-                    </p>
-                  </div>
+                  )}
+                  {c.verified && (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary ring-1 ring-primary/20">
+                      <ShieldCheck className="h-3.5 w-3.5" /> Ficha verificada
+                    </span>
+                  )}
                 </div>
 
-                <div className="flex flex-1 items-center gap-3 rounded-2xl bg-card p-3 pr-5 shadow-soft ring-1 ring-border">
-                  <div className="flex flex-1 flex-col">
-                    <div className="flex items-center justify-between text-xs text-muted-foreground">
-                      <span className="font-semibold text-foreground">
-                        Ficha completa al {c.completeness}%
-                      </span>
-                      <span>{c.completeness}/100</span>
+                <h1 className="mt-3 font-display text-[1.75rem] font-semibold leading-[1.1] tracking-tight text-ink sm:text-4xl lg:text-[2.5rem]">
+                  {c.name}
+                </h1>
+
+                <p className="mt-2 inline-flex items-center gap-1.5 text-sm text-muted-foreground">
+                  <MapPin className="h-4 w-4 shrink-0 text-coral" />
+                  <span className="truncate">{c.address}</span>
+                </p>
+
+                {/* Métricas en línea */}
+                <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-border pt-5">
+                  <div className="flex items-center gap-2.5">
+                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary font-display text-base font-bold leading-none text-primary-foreground">
+                      {c.score.toFixed(1)}
+                    </span>
+                    <div>
+                      <div className="flex items-center gap-0.5" aria-hidden>
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`h-3.5 w-3.5 ${
+                              i < ratingStars ? "fill-star text-star" : "text-muted-foreground/30"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      <a
+                        href="#opiniones"
+                        className="text-xs text-muted-foreground hover:text-primary"
+                      >
+                        <span className="font-semibold text-foreground">
+                          {c.reviews} {c.reviews === 1 ? "valoración" : "valoraciones"}
+                        </span>{" "}
+                        de familias
+                      </a>
+                    </div>
+                  </div>
+
+                  <span className="hidden h-8 w-px bg-border sm:block" />
+
+                  <div className="min-w-[9rem] flex-1">
+                    <div className="flex items-baseline justify-between text-xs text-muted-foreground">
+                      <span className="font-semibold text-foreground">Ficha completa</span>
+                      <span>{c.completeness}%</span>
                     </div>
                     <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-muted">
                       <div
@@ -889,73 +893,78 @@ function CentroPage() {
                     </div>
                   </div>
                 </div>
+
+                {/* Enlaces del centro */}
+                <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-semibold">
+                  {c.website && (
+                    <a
+                      href={c.website}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="inline-flex items-center gap-1.5 text-foreground/80 hover:text-primary"
+                    >
+                      <Globe className="h-3.5 w-3.5 text-primary" /> Web del centro
+                    </a>
+                  )}
+                  {c.social?.instagram && (
+                    <a
+                      href={c.social.instagram}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="inline-flex items-center gap-1.5 text-foreground/80 hover:text-primary"
+                    >
+                      <Instagram className="h-3.5 w-3.5 text-primary" /> Instagram
+                    </a>
+                  )}
+                  {c.social?.facebook && (
+                    <a
+                      href={c.social.facebook}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="inline-flex items-center gap-1.5 text-foreground/80 hover:text-primary"
+                    >
+                      <Facebook className="h-3.5 w-3.5 text-primary" /> Facebook
+                    </a>
+                  )}
+                  {c.claimed && (
+                    <span className="inline-flex items-center gap-1.5 text-primary">
+                      <CheckCircle2 className="h-3.5 w-3.5" /> Gestionada por el centro
+                    </span>
+                  )}
+                </div>
               </div>
 
-              <div className="mt-5 flex flex-wrap items-center gap-2">
-                {c.website && (
-                  <a
-                    href={c.website}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground hover:bg-muted"
-                  >
-                    <Globe className="h-3.5 w-3.5 text-primary" /> Web del centro
-                  </a>
-                )}
-                {c.social?.instagram && (
-                  <a
-                    href={c.social.instagram}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground hover:bg-muted"
-                  >
-                    <Instagram className="h-3.5 w-3.5 text-primary" /> Instagram
-                  </a>
-                )}
-                {c.social?.facebook && (
-                  <a
-                    href={c.social.facebook}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground hover:bg-muted"
-                  >
-                    <Facebook className="h-3.5 w-3.5 text-primary" /> Facebook
-                  </a>
-                )}
-                {c.claimed && (
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary">
-                    <CheckCircle2 className="h-3.5 w-3.5" /> Gestionada por el centro
-                  </span>
-                )}
-                <a
-                  href="#"
-                  className="ml-auto hidden text-xs font-semibold text-primary hover:underline sm:inline"
+              {/* Acciones */}
+              <div className="lg:border-l lg:border-border lg:pl-10">
+                <button
+                  type="button"
+                  onClick={scrollToForm}
+                  className="group flex w-full items-center justify-between gap-3 rounded-2xl bg-primary p-5 text-left text-primary-foreground shadow-lift transition-transform hover:-translate-y-0.5"
                 >
-                  ¿Eres el dueño? Gestionar
-                </a>
-              </div>
-            </div>
+                  <span>
+                    <span className="block font-display text-base font-semibold leading-snug">
+                      Solicita plaza o información
+                    </span>
+                    <span className="mt-1 block text-xs opacity-85">
+                      Mediación gratuita · respuesta &lt; 48 h
+                    </span>
+                  </span>
+                  <Calendar className="h-5 w-5 shrink-0 transition-transform group-hover:scale-110" />
+                </button>
 
-            {/* Aside hero CTA (visible desde el principio en desktop) */}
-            <div className="hidden lg:block">
-              <button
-                type="button"
-                onClick={scrollToForm}
-                className="group inline-flex w-full items-center justify-between gap-3 rounded-3xl bg-primary p-5 text-left text-primary-foreground shadow-lift transition-transform hover:-translate-y-0.5"
-              >
-                <span>
-                  <span className="block font-display text-lg font-semibold">
-                    Solicita plaza o información
-                  </span>
-                  <span className="mt-1 block text-xs opacity-85">
-                    Mediación gratuita · respuesta &lt; 48 h
-                  </span>
-                </span>
-                <Calendar className="h-6 w-6 transition-transform group-hover:scale-110" />
-              </button>
+                <HeaderActions name={c.name} />
+
+                <p className="mt-4 text-center text-xs text-muted-foreground lg:text-left">
+                  ¿Eres el dueño?{" "}
+                  <a href="#" className="font-semibold text-primary hover:underline">
+                    Gestiona esta ficha
+                  </a>
+                </p>
+              </div>
             </div>
           </div>
         </section>
+
 
         {/* Sticky in-page nav */}
         <div className="sticky top-[57px] z-30 border-y border-border bg-background/95 backdrop-blur">
