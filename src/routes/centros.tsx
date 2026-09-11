@@ -55,7 +55,8 @@ function enumOr<T extends string>(allowed: readonly T[], v: unknown, fallback: T
   return typeof v === "string" && (allowed as readonly string[]).includes(v) ? (v as T) : fallback;
 }
 
-function validateSearch(input: Record<string, unknown>): SearchT {
+function validateSearch(raw: Partial<SearchT>): SearchT {
+  const input = raw as Record<string, unknown>;
   return {
     q: typeof input.q === "string" ? input.q : "",
     provincia: strArr(input.provincia),
@@ -67,6 +68,8 @@ function validateSearch(input: Record<string, unknown>): SearchT {
     page: Math.max(1, Math.floor(Number(input.page) || 1)),
   };
 }
+
+export const centrosSearchDefaults: SearchT = validateSearch({});
 
 export const Route = createFileRoute("/centros")({
   validateSearch,
@@ -450,6 +453,7 @@ function SiteHeader() {
         <nav className="flex items-center gap-1 text-sm">
           <Link
             to="/centros"
+            search={centrosSearchDefaults}
             className="rounded-full px-3 py-2 font-semibold text-primary"
           >
             Buscar centros
@@ -485,7 +489,7 @@ function SiteFooter() {
         <div>
           <h4 className="font-display font-semibold text-ink">Familias</h4>
           <ul className="mt-2 space-y-1.5 text-xs text-muted-foreground">
-            <li><Link to="/centros" className="hover:text-primary">Buscar centros</Link></li>
+            <li><Link to="/centros" search={centrosSearchDefaults} className="hover:text-primary">Buscar centros</Link></li>
             <li><a href="#" className="hover:text-primary">Cómo elegir guardería</a></li>
             <li><a href="#" className="hover:text-primary">Ayudas y bonificaciones</a></li>
           </ul>

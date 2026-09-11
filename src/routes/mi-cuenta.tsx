@@ -18,6 +18,7 @@ import {
   Check,
 } from "lucide-react";
 import educolandLogo from "@/assets/educoland-logo-v2.png.asset.json";
+import { centrosSearchDefaults } from "./centros";
 
 export const Route = createFileRoute("/mi-cuenta")({
   head: () => ({
@@ -809,7 +810,7 @@ function ProPanel({ name, onReset }: { name: string; onReset: () => void }) {
           </button>
           <Link
             to="/centros"
-            search={{}}
+            search={centrosSearchDefaults}
             className="rounded-full border border-ink/80 px-5 py-2.5 text-sm font-semibold text-ink transition-all hover:bg-ink hover:text-white"
           >
             Buscar centros

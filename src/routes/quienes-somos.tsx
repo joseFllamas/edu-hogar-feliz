@@ -3,6 +3,7 @@ import { ArrowRight, HeartHandshake, School, Users } from "lucide-react";
 import educolandLogo from "@/assets/educoland-logo-v2.png.asset.json";
 import quienesHero from "@/assets/quienes-hero.jpg";
 import quienesHands from "@/assets/quienes-hands.jpg";
+import { centrosSearchDefaults } from "./centros";
 
 export const Route = createFileRoute("/quienes-somos")({
   head: () => ({
@@ -236,7 +237,7 @@ function SiteHeader() {
         <nav className="flex items-center gap-1 text-sm">
           <Link
             to="/centros"
-            search={{}}
+            search={centrosSearchDefaults}
             className="rounded-full px-3 py-2 font-medium text-foreground/80 hover:bg-muted hover:text-foreground"
           >
             Buscar centros
@@ -272,7 +273,7 @@ function SiteFooter() {
         <div>
           <h4 className="font-display font-semibold text-ink">Familias</h4>
           <ul className="mt-2 space-y-1.5 text-xs text-muted-foreground">
-            <li><Link to="/centros" search={{}} className="hover:text-primary">Buscar centros</Link></li>
+            <li><Link to="/centros" search={centrosSearchDefaults} className="hover:text-primary">Buscar centros</Link></li>
             <li><a href="#" className="hover:text-primary">Ayudas y becas</a></li>
           </ul>
         </div>
