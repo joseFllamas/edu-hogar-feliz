@@ -1,12 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
-import { centrosSearchDefaults } from "./centros";
   ArrowRight,
   ArrowUpRight,
   Plus,
   Minus,
 } from "lucide-react";
+import { centrosSearchDefaults } from "./centros";
 
 export const Route = createFileRoute("/empleo")({
   head: () => ({
