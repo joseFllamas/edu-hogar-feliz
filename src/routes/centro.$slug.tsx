@@ -1429,3 +1429,53 @@ function InfoRow({
     </div>
   );
 }
+
+function HeaderActions({ name }: { name: string }) {
+  const [saved, setSaved] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  async function share() {
+    const url = typeof window !== "undefined" ? window.location.href : "";
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({ title: name, url });
+        return;
+      } catch {
+        /* cancelado */
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* sin portapapeles */
+    }
+  }
+
+  return (
+    <div className="mt-3 grid grid-cols-2 gap-3">
+      <button
+        type="button"
+        onClick={() => setSaved((s) => !s)}
+        aria-pressed={saved}
+        className={`inline-flex items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-semibold transition-colors ${
+          saved
+            ? "border-coral/40 bg-coral/10 text-coral"
+            : "border-border bg-card text-foreground hover:bg-muted"
+        }`}
+      >
+        <Heart className={`h-4 w-4 ${saved ? "fill-coral" : ""}`} />
+        {saved ? "Guardado" : "Guardar"}
+      </button>
+      <button
+        type="button"
+        onClick={share}
+        className="inline-flex items-center justify-center gap-2 rounded-2xl border border-border bg-card px-4 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
+      >
+        <Share2 className="h-4 w-4" />
+        {copied ? "Copiado" : "Compartir"}
+      </button>
+    </div>
+  );
+}
