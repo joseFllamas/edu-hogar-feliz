@@ -17,6 +17,8 @@ import {
   ChevronRight,
   Filter as FilterIcon,
   Inbox,
+  ChevronDown,
+
 } from "lucide-react";
 import {
   FACET_COUNTS,
@@ -978,8 +980,13 @@ function NearbyTowns({
     );
   }, [provincia]);
 
+  const [expanded, setExpanded] = useState(false);
+
   if (towns.length < 2) return null;
   const current = activeQuery.trim().toLowerCase();
+  const top = towns.slice(0, 12);
+  const rest = towns.slice(12);
+
 
   return (
     <section
@@ -1004,39 +1011,88 @@ function NearbyTowns({
             </p>
           </div>
 
-          <ul className="grid gap-x-8 gap-y-1 sm:grid-cols-2 xl:grid-cols-3">
-            {towns.map(({ localidad, count }) => {
-              const isActive = current === localidad.toLowerCase();
-              return (
-                <li key={localidad}>
-                  <button
-                    type="button"
-                    onClick={() => onSelect(localidad)}
-                    aria-current={isActive ? "true" : undefined}
-                    className={`group flex w-full items-center gap-3 rounded-xl border border-transparent px-3 py-2.5 text-left transition ${
-                      isActive
-                        ? "border-primary/30 bg-card shadow-soft"
-                        : "hover:border-border hover:bg-card hover:shadow-soft"
-                    }`}
-                  >
-                    <MapPin
-                      className={`h-4 w-4 shrink-0 ${
-                        isActive ? "text-primary" : "text-primary/50 group-hover:text-primary"
+          <div>
+            <ul className="grid gap-x-6 gap-y-1 sm:grid-cols-2 xl:grid-cols-3">
+              {top.map(({ localidad, count }) => {
+                const isActive = current === localidad.toLowerCase();
+                return (
+                  <li key={localidad}>
+                    <button
+                      type="button"
+                      onClick={() => onSelect(localidad)}
+                      aria-current={isActive ? "true" : undefined}
+                      className={`group flex w-full items-center gap-3 rounded-xl border border-transparent px-3 py-2.5 text-left transition ${
+                        isActive
+                          ? "border-primary/30 bg-card shadow-soft"
+                          : "hover:border-border hover:bg-card hover:shadow-soft"
                       }`}
-                      aria-hidden
-                    />
-                    <span className="min-w-0 flex-1 truncate text-sm font-semibold text-foreground">
-                      {localidad}
-                    </span>
+                    >
+                      <MapPin
+                        className={`h-4 w-4 shrink-0 ${
+                          isActive ? "text-primary" : "text-primary/50 group-hover:text-primary"
+                        }`}
+                        aria-hidden
+                      />
+                      <span className="min-w-0 flex-1 truncate text-sm font-semibold text-foreground">
+                        {localidad}
+                      </span>
 
-                    <span className="shrink-0 rounded-full bg-muted px-2 py-0.5 text-xs font-bold tabular-nums text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary">
-                      {count}
-                    </span>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+                      <span className="shrink-0 rounded-full bg-muted px-2 py-0.5 text-xs font-bold tabular-nums text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary">
+                        {count}
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+
+            {rest.length > 0 && (
+              <div className="mt-6 border-t border-border/70 pt-6">
+                {expanded && (
+                  <ul className="flex flex-wrap gap-2">
+                    {rest.map(({ localidad, count }) => {
+                      const isActive = current === localidad.toLowerCase();
+                      return (
+                        <li key={localidad}>
+                          <button
+                            type="button"
+                            onClick={() => onSelect(localidad)}
+                            aria-current={isActive ? "true" : undefined}
+                            className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
+                              isActive
+                                ? "border-primary/40 bg-primary/10 text-primary"
+                                : "border-border bg-card text-foreground hover:border-primary/40 hover:text-primary"
+                            }`}
+                          >
+                            <span className="max-w-[11rem] truncate">{localidad}</span>
+                            <span className="tabular-nums text-muted-foreground">{count}</span>
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => setExpanded((v) => !v)}
+                  aria-expanded={expanded}
+                  className={`inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline ${
+                    expanded ? "mt-5" : ""
+                  }`}
+                >
+                  {expanded
+                    ? "Ver menos poblaciones"
+                    : `Ver las ${towns.length} poblaciones de ${provincia}`}
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform ${expanded ? "rotate-180" : ""}`}
+                    aria-hidden
+                  />
+                </button>
+              </div>
+            )}
+          </div>
+
         </div>
       </div>
     </section>
