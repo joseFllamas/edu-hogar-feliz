@@ -17,6 +17,8 @@ import {
   ChevronRight,
   Filter as FilterIcon,
   Inbox,
+  ChevronDown,
+
 } from "lucide-react";
 import {
   FACET_COUNTS,
