@@ -1025,9 +1025,10 @@ function NearbyTowns({
                       }`}
                       aria-hidden
                     />
-                    <span className="min-w-0 flex-1 truncate text-sm font-medium text-foreground">
-                      Escuelas infantiles en {localidad}
+                    <span className="min-w-0 flex-1 truncate text-sm font-semibold text-foreground">
+                      {localidad}
                     </span>
+
                     <span className="shrink-0 rounded-full bg-muted px-2 py-0.5 text-xs font-bold tabular-nums text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary">
                       {count}
                     </span>
