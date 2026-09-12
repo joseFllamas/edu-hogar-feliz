@@ -1133,8 +1133,19 @@ function Pagination({
   );
 }
 
+function pageNumbers(current: number, total: number): (number | "…")[] {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const set = new Set<number>([1, total, current, current - 1, current + 1]);
+  const sorted = Array.from(set)
+    .filter((n) => n >= 1 && n <= total)
+    .sort((a, b) => a - b);
+  const out: (number | "…")[] = [];
+  let prev = 0;
+  for (const n of sorted) {
+    if (n - prev > 1) out.push("…");
     out.push(n);
     prev = n;
   }
   return out;
 }
+
