@@ -380,12 +380,23 @@ function CentrosPage() {
               <Pagination
                 page={page}
                 total={totalPages}
+                totalResults={results.length}
+                pageSize={PAGE_SIZE}
                 onChange={(p) => navigate({ search: (prev: SearchT) => ({ ...prev, page: p }) })}
               />
             )}
           </section>
         </div>
+
+        {search.provincia.length === 1 && (
+          <NearbyTowns
+            provincia={search.provincia[0]}
+            activeQuery={search.q}
+            onSelect={(localidad) => update({ q: localidad })}
+          />
+        )}
       </main>
+
 
       {/* Mobile filter drawer */}
       {filtersOpen && (
