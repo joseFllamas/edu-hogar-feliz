@@ -958,73 +958,181 @@ export function GridSkeleton() {
   );
 }
 
+function NearbyTowns({
+  provincia,
+  activeQuery,
+  onSelect,
+}: {
+  provincia: string;
+  activeQuery: string;
+  onSelect: (localidad: string) => void;
+}) {
+  const towns = useMemo(() => {
+    const map = new Map<string, number>();
+    for (const c of MOCK_CENTROS) {
+      if (c.provincia !== provincia) continue;
+      map.set(c.localidad, (map.get(c.localidad) ?? 0) + 1);
+    }
+    return Array.from(map, ([localidad, count]) => ({ localidad, count })).sort(
+      (a, b) => b.count - a.count || a.localidad.localeCompare(b.localidad, "es"),
+    );
+  }, [provincia]);
+
+  if (towns.length < 2) return null;
+  const current = activeQuery.trim().toLowerCase();
+
+  return (
+    <section
+      aria-labelledby="otras-poblaciones"
+      className="mt-14 border-t border-border bg-muted/30"
+    >
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:gap-14">
+          <div className="lg:pt-1">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-coral">
+              Explora la zona
+            </p>
+            <h2
+              id="otras-poblaciones"
+              className="mt-2 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl"
+            >
+              Otras poblaciones de {provincia}
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Muchas familias amplían la búsqueda a municipios cercanos. Elige una
+              población para ver sus escuelas infantiles y guarderías.
+            </p>
+          </div>
+
+          <ul className="grid gap-x-8 gap-y-1 sm:grid-cols-2 xl:grid-cols-3">
+            {towns.map(({ localidad, count }) => {
+              const isActive = current === localidad.toLowerCase();
+              return (
+                <li key={localidad}>
+                  <button
+                    type="button"
+                    onClick={() => onSelect(localidad)}
+                    aria-current={isActive ? "true" : undefined}
+                    className={`group flex w-full items-center gap-3 rounded-xl border border-transparent px-3 py-2.5 text-left transition ${
+                      isActive
+                        ? "border-primary/30 bg-card shadow-soft"
+                        : "hover:border-border hover:bg-card hover:shadow-soft"
+                    }`}
+                  >
+                    <MapPin
+                      className={`h-4 w-4 shrink-0 ${
+                        isActive ? "text-primary" : "text-primary/50 group-hover:text-primary"
+                      }`}
+                      aria-hidden
+                    />
+                    <span className="min-w-0 flex-1 truncate text-sm font-medium text-foreground">
+                      Escuelas infantiles en {localidad}
+                    </span>
+                    <span className="shrink-0 rounded-full bg-muted px-2 py-0.5 text-xs font-bold tabular-nums text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary">
+                      {count}
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Pagination({
   page,
   total,
+  totalResults,
+  pageSize,
   onChange,
 }: {
   page: number;
   total: number;
+  totalResults: number;
+  pageSize: number;
   onChange: (p: number) => void;
 }) {
-  if (total <= 1) return null;
+  const from = (page - 1) * pageSize + 1;
+  const to = Math.min(totalResults, page * pageSize);
   const nums = pageNumbers(page, total);
   return (
-    <nav
-      aria-label="Paginación de resultados"
-      className="mt-10 flex flex-wrap items-center justify-center gap-1.5"
-    >
-      <button
-        type="button"
-        onClick={() => onChange(Math.max(1, page - 1))}
-        disabled={page === 1}
-        className="inline-flex items-center gap-1 rounded-full border border-border bg-card px-3 py-1.5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
-      >
-        <ChevronLeft className="h-4 w-4" /> Anterior
-      </button>
-      {nums.map((n, i) =>
-        n === "…" ? (
-          <span key={`g-${i}`} className="px-2 text-sm text-muted-foreground">
-            …
-          </span>
-        ) : (
+    <div className="mt-10 flex flex-col items-center gap-4 border-t border-border pt-6">
+      <p className="text-xs text-muted-foreground">
+        Mostrando{" "}
+        <strong className="font-semibold tabular-nums text-foreground">
+          {from}–{to}
+        </strong>{" "}
+        de{" "}
+        <strong className="font-semibold tabular-nums text-foreground">
+          {totalResults.toLocaleString("es-ES")}
+        </strong>{" "}
+        centros
+      </p>
+
+      {total > 1 && (
+        <nav
+          aria-label="Paginación de resultados"
+          className="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-center sm:gap-2"
+        >
           <button
-            key={n}
             type="button"
-            onClick={() => onChange(n)}
-            aria-current={n === page ? "page" : undefined}
-            className={`min-w-9 rounded-full px-3 py-1.5 text-sm font-semibold ${
-              n === page
-                ? "bg-primary text-primary-foreground"
-                : "border border-border bg-card text-foreground hover:bg-muted"
-            }`}
+            onClick={() => onChange(Math.max(1, page - 1))}
+            disabled={page === 1}
+            aria-label="Página anterior"
+            className="inline-flex h-10 items-center gap-1.5 rounded-full border border-border bg-card px-3 text-sm font-semibold shadow-soft transition hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
           >
-            {n}
+            <ChevronLeft className="h-4 w-4" />
+            <span className="hidden sm:inline">Anterior</span>
           </button>
-        ),
+
+          <div className="hidden items-center gap-1.5 sm:flex">
+            {nums.map((n, i) =>
+              n === "…" ? (
+                <span key={`g-${i}`} className="px-1 text-sm text-muted-foreground">
+                  …
+                </span>
+              ) : (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => onChange(n)}
+                  aria-current={n === page ? "page" : undefined}
+                  aria-label={`Página ${n}`}
+                  className={`inline-flex h-10 min-w-10 items-center justify-center rounded-full px-3 text-sm font-semibold tabular-nums transition ${
+                    n === page
+                      ? "bg-primary text-primary-foreground shadow-lift"
+                      : "border border-border bg-card text-foreground shadow-soft hover:bg-muted"
+                  }`}
+                >
+                  {n}
+                </button>
+              ),
+            )}
+          </div>
+
+          <p className="text-sm font-semibold tabular-nums text-foreground sm:hidden">
+            {page} <span className="font-normal text-muted-foreground">de {total}</span>
+          </p>
+
+          <button
+            type="button"
+            onClick={() => onChange(Math.min(total, page + 1))}
+            disabled={page === total}
+            aria-label="Página siguiente"
+            className="inline-flex h-10 items-center gap-1.5 rounded-full border border-border bg-card px-3 text-sm font-semibold shadow-soft transition hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
+          >
+            <span className="hidden sm:inline">Siguiente</span>
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        </nav>
       )}
-      <button
-        type="button"
-        onClick={() => onChange(Math.min(total, page + 1))}
-        disabled={page === total}
-        className="inline-flex items-center gap-1 rounded-full border border-border bg-card px-3 py-1.5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted"
-      >
-        Siguiente <ChevronRight className="h-4 w-4" />
-      </button>
-    </nav>
+    </div>
   );
 }
 
-function pageNumbers(current: number, total: number): (number | "…")[] {
-  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
-  const set = new Set<number>([1, total, current, current - 1, current + 1]);
-  const sorted = Array.from(set)
-    .filter((n) => n >= 1 && n <= total)
-    .sort((a, b) => a - b);
-  const out: (number | "…")[] = [];
-  let prev = 0;
-  for (const n of sorted) {
-    if (n - prev > 1) out.push("…");
     out.push(n);
     prev = n;
   }
