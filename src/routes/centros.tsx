@@ -978,8 +978,13 @@ function NearbyTowns({
     );
   }, [provincia]);
 
+  const [expanded, setExpanded] = useState(false);
+
   if (towns.length < 2) return null;
   const current = activeQuery.trim().toLowerCase();
+  const top = towns.slice(0, 12);
+  const rest = towns.slice(12);
+
 
   return (
     <section
